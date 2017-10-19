@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airport of United States</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
+    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/1.3.4/chroma.min.js"></script>
+    <style>
+        /*full screen the map*/
+        html { height:100%;}
+        body {
+            height:100%;
+            padding: 0;
+            margin: 0;
+        }
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<!-- Our web map and content will go here -->
+<div id="map" style="width: 900px; height: 600px;"></div>
+<div id="credits">
+    <p> Fall 2017 | Geovisualization: Web Mapping &copy; Shangjia Dong, OSU</p>
+</div>
+<script>
+
+    // 1. Create a map object.
+    var mymap = L.map('map').setView([37.8, -96], 4);
+    // 2. Add a base map.
+    L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
+        {
+            detectRetina: true
+        }).addTo(mymap);
+    // 3. Create the chorepleth map with interactive functions.
+    // determine the number of classes and their respective break values.
+    var grades = [0, 5, 10, 20, 35, 50, 200];
+
+    // determine the color ramp. The number of colors is determined by the number of classes.
+    // try different interpolation method lch, lab, hsl
+    // var colors = chroma.scale(['yellow', 'navy']).mode('hsl').colors(grades.length);
+    var colors = chroma.scale('YlOrRd').colors(grades.length);
+
+    // get the color based on the class which the input value falls in.
+    function getColor(d) {
+        for (var i = 0; i < grades.length - 1; i++) {
+            if ( d > grades[i] && d < grades[i+1] ) return colors[i];
+        }
+        if (d > grades[grades.length - 1]) return colors[grades.length];
+    }
+    // determine the style class based on the input feature
+    function style(feature) {
+        return {
+            weight: 2,
+            opacity: 1,
+            color: 'white',
+            dashArray: '3',
+            fillOpacity: 0.7,
+            fillColor: getColor(feature.properties.count)
+        };
+    }
+    L.geoJson.ajax("assets/us-states.geojson", {
+        style: style
+    }).addTo(mymap);
+    // 3. Add airport GeoJSON Data
+    // Null variable that will hold rodent violation data
+    var airport = null;
+    // Get GeoJSON and put on it on the map when it loads
+
+    airport= L.geoJson.ajax("assets/airports.geojson", {
+        onEachFeature: function (feature, layer) {
+            layer.bindPopup(feature.properties.AIRPT_NAME),
+            layer.bindPopup(feature.geometry.coordinates)
+        },
+
+        pointToLayer: function (feature, latlng) {
+            return L.marker(latlng, {icon: L.divIcon({className: 'fa fa-plane'})})
+        }
+
+    }).addTo(mymap)
+
+
+</script>
+</body>
+</html>
