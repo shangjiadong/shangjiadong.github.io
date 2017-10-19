@@ -22,14 +22,58 @@
             width: 100%;
             height: 100%;
         }
+
+        .info {
+            z-index: 1000;
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            padding: 6px 8px;
+            font: 14px Arial, Helvetica, sans-serif;
+            text-align: right;
+            background: white;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
+        .info h1 {
+            font-size: 16px;
+            margin: 0 0 5px;
+            color: #777777;
+        }
+
+        /*legend panel*/
+        .legend {
+            z-index: 1000;
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
+            padding: 6px 8px;
+            font: 14px Arial, Helvetica, sans-serif;
+            background: white;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
+        .legend i {
+            width: 18px;
+            height: 16px;
+            float: left;
+            margin-right: 8px;
+            opacity: 0.7;
+        }
     </style>
 </head>
 <body>
 <!-- Our web map and content will go here -->
-<div id="map" style="width: 900px; height: 600px;"></div>
+<div id="map" style=""></div>
 <div id="credits">
     <p> Fall 2017 | Geovisualization: Web Mapping &copy; Shangjia Dong, OSU</p>
 </div>
+
+<div class='info'><h1>US Airport Density</h1><div class='update'>Hover over a state</div></div>
+<div class='legend'></div>
+
 <script>
 
     // 1. Create a map object.
@@ -41,7 +85,7 @@
         }).addTo(mymap);
     // 3. Create the chorepleth map with interactive functions.
     // determine the number of classes and their respective break values.
-    var grades = [0, 5, 10, 20, 35, 50, 200];
+    var grades = [0, 5, 10, 20, 35, 50, 100, 200];
 
     // determine the color ramp. The number of colors is determined by the number of classes.
     // try different interpolation method lch, lab, hsl
@@ -66,26 +110,70 @@
             fillColor: getColor(feature.properties.count)
         };
     }
-    L.geoJson.ajax("assets/us-states.geojson", {
-        style: style
+
+    //highlight a feature when the mouse hovers on it.
+    function highlightFeature(e) {
+        // e indicates the current event
+        var layer = e.target; //the target capture the object which the event associates with
+        layer.setStyle({
+            weight: 8,
+            opacity: 0.8,
+            color: '#e3e3e3',
+            fillColor: '#1ce3d7',
+            fillOpacity: 0.5
+        });
+        // bring the layer to the front.
+        layer.bringToFront();
+        // select the update class, and update the contet with the input value.
+        $(".update").html('<b>' + layer.feature.properties.name + '</b>   ' + layer.feature.properties.count  + ' Airport');
+    }
+    //reset the hightlighted feature when the mouse is out of its region.
+    function resetHighlight(e) {
+        state.resetStyle(e.target);
+        $(".update").html("Hover over a state");
+    }
+    // zoom to the highlighted feature when the mouse is clicking onto it.
+    function zoomToFeature(e) {
+        mymap.fitBounds(e.target.getBounds());
+    }
+
+    //add these event the layer obejct.
+    function onEachFeature(feature, layer) {
+        layer.on({
+            mouseover: highlightFeature,
+            click: zoomToFeature,
+            mouseout: resetHighlight
+        });
+    }
+
+    var state = L.geoJson.ajax("assets/us-states.geojson", {
+        style: style,
+        onEachFeature: onEachFeature
     }).addTo(mymap);
     // 3. Add airport GeoJSON Data
     // Null variable that will hold rodent violation data
     var airport = null;
     // Get GeoJSON and put on it on the map when it loads
 
+
     airport= L.geoJson.ajax("assets/airports.geojson", {
         onEachFeature: function (feature, layer) {
-            layer.bindPopup(feature.properties.AIRPT_NAME),
-            layer.bindPopup(feature.geometry.coordinates)
+            layer.bindPopup(feature.properties.AIRPT_NAME)
         },
 
         pointToLayer: function (feature, latlng) {
             return L.marker(latlng, {icon: L.divIcon({className: 'fa fa-plane'})})
         }
 
-    }).addTo(mymap)
+    }).addTo(mymap);
 
+    //create the legend
+    var labels = [];
+    for (var i = 0; i < grades.length - 1; i++) {
+        labels.push('<i style="background:' + colors[i] + '"></i> ' + grades[i] + ' - ' + grades[i + 1]);
+    }
+    labels.push('<i style="background:' + colors[grades.length - 1] + '"></i> ' + grades[grades.length - 1] + ' +');
+    $(".legend").html(labels.join('<br>'));
 
 </script>
 </body>
