@@ -1,5 +1,5 @@
 # Airport of United States
-[airport map](/img/interface.png)
+[airport map](https://github.com/Shangjia-Dong/usairport/tree/master/img/interface.png)
 
 ## Introduction
 This map layer includes airports in the United States, Puerto Rico and the U.S. Virgin Islands. 
@@ -26,15 +26,24 @@ Statistics, Department of Transportation.
 > When you click the state, the map zooms in and show the deteils of the corresponding state
 
 4. **Pop up**
-
 > When you click on the plane icon, it shows the name of the airport
 
+## Elements 
+
+1. **Display**
+
+> When you hoover the mouse over a state, the upper right corner displays how many airports are in that state
+
+2. **Legend**
+
+> In the base map, I used YlOrRd color platte, the legend shows the corresponding number of airports of each color 
+
+3. **Credit**
+> At the bottom right corner, it shows the credits of this map.
+ 
 
 
-
-
-
-# Acknowledgement
+## Acknowledgement
 
 This project is developed under the help of Dr. Bo Zhao. The author thanks him for the timely help and ocnstructive advice.
 
