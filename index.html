@@ -155,10 +155,12 @@
     var airport = null;
     // Get GeoJSON and put on it on the map when it loads
 
-
     airport= L.geoJson.ajax("assets/airports.geojson", {
         onEachFeature: function (feature, layer) {
             layer.bindPopup(feature.properties.AIRPT_NAME)
+            layer.on({
+                onclick: highlightFeature
+            })
         },
 
         pointToLayer: function (feature, latlng) {
@@ -174,6 +176,8 @@
     }
     labels.push('<i style="background:' + colors[grades.length - 1] + '"></i> ' + grades[grades.length - 1] + ' +');
     $(".legend").html(labels.join('<br>'));
+    // Add credit
+    mymap.attributionControl.addAttribution('Airport data &copy; <a href="https://catalog.data.gov/">U.S. Geological Survey, Department of the Interior</a> | This map is made by <a href="http://people.oregonstate.edu/~dongs">Shangjia Dong</a>');
 
 </script>
 </body>
