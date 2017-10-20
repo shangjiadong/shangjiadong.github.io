@@ -1,5 +1,5 @@
 # Airport of United States
-[airport map](https://github.com/Shangjia-Dong/usairport/tree/master/img/interface.png)
+![airport map](/img/interface.jpg)
 
 ## Introduction
 This map layer includes airports in the United States, Puerto Rico and the U.S. Virgin Islands. 
