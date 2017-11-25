@@ -1,5 +1,5 @@
 # Airport of United States
-![airport map](/img/interface.jpg)
+![airport map](./img/interface.jpg)
 
 ## Introduction
 This map layer includes airports in the United States, Puerto Rico and the U.S. Virgin Islands. 
