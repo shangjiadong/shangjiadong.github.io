@@ -3,40 +3,199 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title> Shangjia Dong Research Group</title>
+    <title> Homepage &mdash; Shangjia Dong Research Group</title>
     <meta content="Shangjia Dong's interdisciplinary research focuses on the risk and resilience modeling and analysis of the human-disaster-built environment nexus."
           name="description" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="site.webmanifest">
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/page_icon.png">
 
-	<!-- CSS here -->
-	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-	<link rel="stylesheet" href="assets/css/slicknav.css">
+    <!-- CSS here -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="assets/css/slicknav.css">
     <link rel="stylesheet" href="assets/css/flaticon.css">
     <link rel="stylesheet" href="assets/css/gijgo.css">
-	<link rel="stylesheet" href="assets/css/animate.min.css">
-	<link rel="stylesheet" href="assets/css/magnific-popup.css">
-	<link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
-	<link rel="stylesheet" href="assets/css/themify-icons.css">
-	<link rel="stylesheet" href="assets/css/slick.css">
-	<link rel="stylesheet" href="assets/css/nice-select.css">
-	<link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/animate.min.css">
+    <link rel="stylesheet" href="assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/css/themify-icons.css">
+    <link rel="stylesheet" href="assets/css/slick.css">
+    <link rel="stylesheet" href="assets/css/nice-select.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <!-- ==================================================================
+         News section, this page only.
+         The theme's .section-paddingt30 puts 195px of padding above the
+         heading and .blog-cap adds 129px of padding to the right of every
+         card. Both are bypassed here rather than overridden, so no other
+         page using those classes is affected.
+         ================================================================== -->
+    <style>
+        /* Welcome heading. Same typeface as the "News" heading below and the
+           "Our Research Sponsors." heading in the band at the foot of the page:
+           Sarabun, the theme's heading font, at the same weight and in the same
+           #26264b. Size is left on the h1's own style attribute, so changing it
+           there still works.
+
+           BOLD: add dl-bold to the h1's class list to make it bold, remove it to
+           go back. The class sits on the heading itself, so the switch is one
+           word in the markup and nothing in here needs touching. */
+        h1.dl-welcometitle{
+            font-family:"Sarabun",sans-serif;font-weight:600;
+            line-height:1.2;color:#26264b
+        }
+        h1.dl-welcometitle.dl-bold{font-weight:700}
+
+        /* ---- Gap between the hero banner and the opening paragraph -------
+           Four things were stacking up here:
+             1. .sample-text-area's own top padding, from the theme
+             2. an empty <h1> left behind when the welcome heading text was
+                removed - it holds a blank line box even with nothing in it
+             3. pb-98px on the block that h1 sits in: 98px of padding-bottom
+             4. padding-top:30px on the first paragraph
+           (2) and (3) are gone from the markup below, (4) is now 0, and the
+           section's top padding is set here rather than inherited, so the
+           result no longer depends on the theme's value.
+
+           THIS IS THE DIAL: raise for more air, lower for less.           */
+        .sample-text-area{padding-top:64px}
+        @media (max-width:767px){ .sample-text-area{padding-top:44px} }
+
+        .dl-newssec{padding-top:70px;padding-bottom:80px;border-top:1px solid #e4ddf6}
+        .dl-newshead{
+            display:flex;align-items:baseline;justify-content:space-between;
+            gap:16px;flex-wrap:wrap;margin-bottom:6px
+        }
+        .dl-newshead h2{
+            font-family:"Sarabun",sans-serif;font-size:38px;font-weight:600;
+            line-height:1.2;color:#26264b;margin:0
+        }
+        .dl-newsbtn{
+            font-family:"Sen",sans-serif;font-size:13px;letter-spacing:.03em;
+            background:none;border:1px solid #e4ddf6;border-radius:40px;
+            color:#331391;padding:9px 18px;cursor:pointer;
+            transition:background .15s,color .15s,border-color .15s
+        }
+        .dl-newsbtn:hover,.dl-newsbtn[aria-pressed="true"]{
+            background:#331391;border-color:#331391;color:#fff
+        }
+        .dl-newsmore{margin-top:20px}
+        .dl-newsrow{
+            display:grid;grid-template-columns:138px minmax(0,1fr) auto;
+            gap:20px;align-items:baseline;padding:14px 0;border-bottom:1px solid #e4ddf6
+        }
+        .dl-newsrow time{
+            font-family:"Sen",sans-serif;font-size:15px;font-weight:700;
+            letter-spacing:.07em;text-transform:uppercase;color:#331391
+        }
+        .dl-newsrow p{margin:0;font-size:16px;line-height:1.55;color:#10285d}
+        .dl-newsrow a{
+            font-family:"Sen",sans-serif;font-size:13px;color:#331391;
+            text-decoration:none;white-space:nowrap
+        }
+        .dl-newsrow a:hover{color:#1f2b7b;text-decoration:underline}
+        /* ------------------------------------------------------------------
+           Sponsor band overrides. The markup below is yours, unchanged.
+           These two rules apply the shorter band and smaller logos:
+             - the theme's .section-paddingt30 puts 195px top / 90px bottom here
+             - the theme's .work-company .single-logo img{width:100%} overrides
+               the width="200px" attributes, stretching each logo to fill its
+               column (about 207px wide)
+           Delete this block to get your pasted version back exactly as-is.
+           ------------------------------------------------------------------ */
+        .work-company.section-paddingt30{padding-top:46px;padding-bottom:32px}
+        .work-company .section-tittle2 h2{font-size:38px;line-height:1.2;margin-bottom:10px}
+        .work-company .section-tittle2 p{font-size:16px;margin:0}
+
+        /* Staggered logo wave.
+           A 6-column grid; every logo spans 2 columns. Odd rows sit at columns
+           1/3/5 (three logos), even rows at 2/4 (two logos), so each lower logo
+           lands over the gap between two above it. Half-column offsets cannot be
+           expressed with Bootstrap's 12-column classes, hence the grid.
+
+           Each logo carries its own position class (wave-r3c3 = row 3, column 3),
+           so commenting one out never shifts the others, and rows appear only
+           when something occupies them - the band grows by itself. */
+        .work-company .logo-wave{
+            display:grid;grid-template-columns:repeat(6,1fr);
+            row-gap:12px;column-gap:0;align-items:center
+        }
+        .work-company .logo-wave .single-logo{
+            display:flex;align-items:center;justify-content:center;
+            min-height:118px;margin:0
+        }
+
+        /* Positions. Row 4 is defined ahead of time so new logos only need the
+           matching class - no CSS edit. */
+        .wave-r1c1{grid-area:1 / 1 / 2 / 3}
+        .wave-r1c3{grid-area:1 / 3 / 2 / 5}
+        .wave-r1c5{grid-area:1 / 5 / 2 / 7}
+        .wave-r3c1{grid-area:3 / 1 / 4 / 3}
+        .wave-r3c3{grid-area:3 / 3 / 4 / 5}
+        .wave-r3c5{grid-area:3 / 5 / 4 / 7}
+        .wave-r2c2{grid-area:2 / 2 / 3 / 4}
+        .wave-r2c4{grid-area:2 / 4 / 3 / 6}
+        .wave-r4c2{grid-area:4 / 2 / 5 / 4}
+        .wave-r4c4{grid-area:4 / 4 / 5 / 6}
+
+        /* max-height sizes the round marks (NSF, NOAA, the NASEM seal);
+           max-width sizes the wide wordmarks (NIST, DelDOT, UD). */
+        .work-company .logo-wave .single-logo img{width:auto;max-width:180px;max-height:112px}
+
+        @media (max-width:991px){
+            .work-company .logo-wave .single-logo{min-height:104px}
+            .work-company .logo-wave .single-logo img{max-width:158px;max-height:96px}
+        }
+        /* Below tablet the stagger stops reading as deliberate, so square it up.
+           grid-area:auto overrides every position class at once, which is why
+           they all share the wave- prefix. */
+        @media (max-width:767px){
+            .work-company.section-paddingt30{padding-top:34px;padding-bottom:20px}
+            .work-company .section-tittle2 h2{font-size:30px}
+            .work-company .logo-wave{grid-template-columns:repeat(3,1fr);row-gap:16px}
+            .work-company .logo-wave .single-logo[class*="wave-r"]{grid-area:auto}
+            .work-company .logo-wave .single-logo{min-height:84px}
+            .work-company .logo-wave .single-logo img{max-width:126px;max-height:72px}
+        }
+
+        .dl-years{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 2px}
+        .dl-yearbtn{
+            font-family:"Sen",sans-serif;font-size:14px;font-weight:700;letter-spacing:.04em;
+            background:none;border:1px solid #e4ddf6;border-radius:40px;
+            color:#331391;padding:9px 20px;cursor:pointer;
+            font-variant-numeric:tabular-nums;
+            transition:background .15s,color .15s,border-color .15s
+        }
+        .dl-yearbtn:hover{background:#f0e9ff;border-color:#331391}
+        .dl-yearbtn[aria-pressed="true"]{background:#331391;border-color:#331391;color:#fff}
+        .dl-yearbtn .dl-ycount{font-weight:400;opacity:.65;margin-left:5px}
+        .dl-newsyear{
+            font-family:"Sen",sans-serif;font-size:12px;font-weight:700;
+            letter-spacing:.14em;text-transform:uppercase;color:#6b74a4;
+            margin:30px 0 0;padding-bottom:8px;border-bottom:2px solid #e4ddf6
+        }
+        .dl-newsyear:first-child{margin-top:10px}
+        @media (max-width:600px){
+            .dl-newsrow{grid-template-columns:1fr;gap:5px;padding:16px 0}
+            .dl-newssec{padding-top:50px;padding-bottom:60px}
+            .dl-newshead h2{font-size:30px}
+        }
+    </style>
 </head>
 <body>
-    <!-- ? Preloader Start -->
-    <div id="preloader-active">
-        <div class="preloader d-flex align-items-center justify-content-center">
-            <div class="preloader-inner position-relative">
-                <div class="preloader-circle"></div>
-                <div class="preloader-img pere-text">
-                    <img src="assets/img/logo/SD.png" alt="">
-                </div>
+<!-- ? Preloader Start -->
+<div id="preloader-active">
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="preloader-inner position-relative">
+            <div class="preloader-circle"></div>
+            <div class="preloader-img pere-text">
+                <img src="assets/img/logo/SD.png" alt="">
             </div>
         </div>
     </div>
-    <!-- Preloader Start -->
+</div>
+<!-- Preloader Start -->
 <header>
     <!--? Header Start -->
     <div class="header-area">
@@ -46,7 +205,7 @@
                     <!-- Logo -->
                     <div class="col-xl-2 col-lg-2 col-md-1">
                         <div class="logo">
-                            <a href="index.html"><img src="assets/img/logo/lab-logo-resc.png" alt="" width="320"></a>
+                            <a href="index.html"><img src="assets/img/logo/lab_logo4_trans.png" alt="" width="300"></a>
                         </div>
                     </div>
                     <div class="col-xl-10 col-lg-10 col-md-10">
@@ -56,26 +215,20 @@
                                 <nav>
                                     <ul id="navigation">
                                         <li><a href="index.html" style="font-size: larger">Home</a></li>
-                                        <li><a href="research.html" style="font-size: larger">Research</a></li>
-                                        <li><a href="publication.html" style="font-size: larger">Publication</a>
+                                        <li><a href="research.html" style="font-size: larger">Research</a>
                                             <ul class="submenu">
-                                                <li><a href="publication.html" style="font-size: medium">Journal</a></li>
-                                                <li><a href="conference.html" style="font-size: medium">Conference</a></li>
+                                                <li><a href="research.html" style="font-size: medium">Research Areas</a></li>
+                                                <li><a href="https://scholar.google.com/citations?hl=en&amp;user=9mKYf9cAAAAJ&amp;view_op=list_works&amp;sortby=pubdate" target="_blank" rel="noopener" style="font-size: medium">All Publications</a></li>
                                             </ul>
                                         </li>
-                                        <li><a href="team.html" style="font-size: larger">People</a>
-                                            <ul class="submenu">
-                                                <li><a href="team.html" style="font-size: medium">Team</a></li>
-                                                <li><a href="opportunity.html" style="font-size: medium">Join Us</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="teaching.html" style="font-size: larger">Teaching</a></li>
+                                        <li><a href="team.html" style="font-size: larger">Team</a></li>
+                                        <li><a href="opportunity.html" style="font-size: larger">Join Us</a></li>
                                     </ul>
                                 </nav>
                             </div>
 
                         </div>
-                    </div>   
+                    </div>
                     <!-- Mobile Menu -->
                     <div class="col-12">
                         <div class="mobile_menu d-block d-lg-none"></div>
@@ -96,8 +249,11 @@
                     <div class="row">
                         <div class="col-xl-8 col-lg-8 col-md-9 col-sm-10">
                             <div class="hero__caption">
-<!--                                <span data-animation="fadeInLeft" data-delay=".1s">Committed to success</span>-->
-                                <h1 data-animation="fadeInLeft" data-delay=".5s">Smart Resilience</h1>
+                                <!--                                <span data-animation="fadeInLeft" data-delay=".1s">Committed to success</span>-->
+                                <!-- The <br> forces the break after "Resilience," at every
+                                     screen width. Delete it and the line wraps on its own,
+                                     wherever the column happens to run out. -->
+                                <h1 data-animation="fadeInLeft" data-delay=".5s">Resilience,<br>Made Smarter</h1>
 
                             </div>
                         </div>
@@ -109,363 +265,449 @@
     <!-- slider Area End-->
     <!--? About Lab Start-->
     <section class="sample-text-area">
-<!--        <div class="container box_1170">-->
-<!--            <h1 class="text-heading" style="font-size: xx-large">Welcome to our lab</h1>-->
-<!--            <p class="sample-text">-->
-<!--                Every avid independent-->
-<!--            </p>-->
-<!--        </div>-->
+        <!--        <div class="container box_1170">-->
+        <!--            <h1 class="text-heading" style="font-size: xx-large">Welcome to our lab</h1>-->
+        <!--            <p class="sample-text">-->
+        <!--                Every avid independent-->
+        <!--            </p>-->
+        <!--        </div>-->
         <div class="container">
+            <!-- The welcome heading is empty, so the whole block is retired: an
+                 empty <h1> still renders a blank line, and pb-98px added 98px
+                 of padding under it. To bring a heading back, uncomment this
+                 and put your text in the h1 - the .dl-welcometitle rule in the
+                 stylesheet above is still there waiting for it. Drop pb-98px
+                 from the class list unless you want that 98px back.
             <div class="section-intro text-center pb-98px">
-                <!--                <p class="section-intro__title" style="font-size: larger">Welcome to our lab</p>-->
-                <h1 class="primary-text" style="font-size: xx-large">Welcome to Our Homepage</h1>
-                <!--                <img src="img/home/section-style.png" alt="">-->
+                <h1 class="primary-text dl-welcometitle" style="font-size: xx-large">Your heading</h1>
             </div>
-            <div class="row">
-                <div class="col-lg-8 col-md-12">
-                    <p class="sample-text" style="font-size: large; padding-top: 30px">
-                        The rising frequency and severity of disaster events, coupled with the growing interdependence of infrastructure,
-                        continuous public engagement needs, and interconnected social networks in disaster planning, along with the widening
-                        risk disparities in vulnerable communities, are transforming the resilience of urban systems.
-                        Our interdisciplinary research on urban resilience leverages big data analytics, complex network methodologies,
-                        and advanced AI tools to develop comprehensive algorithmic and theoretical frameworks aimed at understanding,
-                        evaluating, and enhancing community health and resilience.
-
+            -->
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-md-12">
+                    <p class="sample-text" style="font-size: large">
+                        People build and maintain infrastructure systems, and depend on them to reach work, school, and care.
+                        Those systems matter only insofar as they meet those needs. Together they form a coupled system.
+                        Disasters are what happen when a hazard breaks that coupling, and the break is never only physical.
                     </p>
                     <p class="sample-text" style="font-size: large; padding-top: 10px">
-                        Led by Dr. Shangjia Dong in the Department of Civil, Construction, and Environmental Engineering at the University of Delaware,
-                        we actively seek collaborative partnerships with agencies, practitioners, and academic researchers. For more information, please contact Dr. Shangjia Dong.
+                        We study this human&ndash;disaster&ndash;built environment nexus. The work spans climate change adaptation, critical infrastructure protection, smart city, and urban resilience.
+                        We build computational models that represent people and infrastructure as one connected system, to trace a
+                        hazard from the first surge or outage into the daily lives it disrupts. We ask which
+                        services fail and in what order, who bears the brunt and why, how they adapt, and which
+                        decisions made today would most change that answer. Three things must converge. The problems must matter
+                        to communities under pressure. The methods and data must represent people and infrastructure as an interdependent
+                        system, from generative AI and network science to agent-based simulation. And the work must sustain
+                        collaboration across the disciplines these questions span. Our research lives at that intersection.
                     </p>
-
                 </div>
-                <div class="col-lg-4 col-md-12">
-                    <!-- about-img -->
-                    <div class="about-img ">
-                        <div class="about-font-img d-none d-lg-block">
-                            <img src="assets/img/logo/homepage_theme_transparent.png" alt=""style="width: 400px">
-                        </div>
-                        <!--                        <div class="about-back-img ">-->
-                        <!--                            <img src="assets/img/gallery/about1.png" alt="">-->
-                    </div>
+                <!-- Research overview figure, beside the text. col-lg-6 gives it
+                     ~540px of usable track, and it
+                     stacks under the paragraphs below 992px rather than being
+                     hidden the way d-none d-lg-block used to do. -->
+                <div class="col-lg-6 col-md-12 text-center">
+                    <img src="assets/img/gallery/research_overview.png"
+                         alt="Research overview: Research Areas (Urban Resilience, Climate Health, AI for Society, Digital Twin); Methods and Tools (Big Data Analytics, Generative AI, Graph Theory, Agent-based Modeling); Disciplines (Civil Engineering, Social Science, Public Policy, Computer Science, Public Health)"
+                         style="width: 100%; max-width: 560px; height: auto">
+                </div>
+            </div>
+
+            <!-- Call to action, centred beneath both columns so neither one
+                 carries its height and the two stay balanced. .boxed-btn is the
+                 theme's own style: white with a #331391 border, filling indigo on
+                 hover - the same brand colour as the sponsor band below. -->
+            <div class="row">
+                <div class="col-12 text-center" style="padding-top: 34px">
+                    <a href="research.html" class="boxed-btn">Explore Our Research</a>
                 </div>
             </div>
 
         </div>
     </section>
+
+    <!--    ? News Area Start-->
+    <section class="dl-newssec">
+        <div class="container">
+
+            <div class="dl-newshead">
+                <h2>News</h2>
+                <button class="dl-newsbtn" type="button" id="dl-news-group" aria-pressed="false">Group by year</button>
+            </div>
+
+            <div id="dl-newslist"></div>
+
+            <button class="dl-newsbtn dl-newsmore" type="button" id="dl-news-more"
+                    aria-expanded="false" aria-controls="dl-newslist" hidden></button>
+
+        </div>
+    </section>
+
+    <!-- ======================================================================
+         NEWS ITEMS
+         ----------------------------------------------------------------------
+         Add an item by copying one line into the list, newest first.
+           on    "YYYY-MM" - the month label and the year grouping both come
+                 from this, so there is nothing to keep in sync
+           what  the announcement text
+           url   optional link; leave it out and no "Read more" appears
+         The six newest show; the rest collapse behind a button.
+         ====================================================================== -->
+    <script>
+        var NEWS = [
+            // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+            // DEMO ITEMS - DELETE THIS WHOLE BLOCK BEFORE THE SITE GOES LIVE.
+            // These exist only so you can see the "Show earlier" button and the
+            // year grouping with more than one year. Every one is invented.
+            // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+            {on:"2026-10",
+                what:"We have multiple Ph.D. student openings in the lab.",
+                url:"opportunity.html"},
+            {on:"2026-10",
+                what:"Our team participated in UD Coast Day to engage with Delaware coastal community members and stakeholders. Saurabh Mohite showcased our research on improving healthcare access resilience to flooding."},
+            {on:"2026-08",
+                what:"We welcome two new Ph.D. students, Hongjin Zhu and Songwen Guan, joining the lab. Welcome, Hongjin and Songwen!"},
+            {on:"2026-06",
+                what:"Dr. Dong receives the 2026 NSF CAREER Award on AI-Driven Role-Aware Modeling of Cascading Disaster Impacts in Sociotechnical Systems\n",
+                url:"https://www.nsf.gov/awardsearch/show-award/?AWD_ID=2542021"},
+            {on:"2026-06",
+                what:"Utkarsh Gangwal defended his dissertation, on the topic of Integrating Adaptive Capacity in Interdependent Human–Infrastructure Systems for Disaster Resilience. Congratulations, Dr. Gangwal!"},
+            {on:"2026-06",
+                what:"Xiao Qian presented our latest work on joint housing-household inventory development at the 2026 SimCenter Computational Symposium."},
+            {on:"2026-05",
+                what:"Utkarsh Gangwal won 2026 CCEE Civil Engineering Graduate Research Award. Congratulations, Utkarsh!"},
+            {on:"2026-05",
+                what:"Utkarsh Gangwal won 2026 College of Engineering Graduate Student Excellence in Research Award. Congratulations, Utkarsh!"},
+            {on:"2026-03",
+                what:"We receive support from NOAA to study the climate impact on Delaware coastal community."},
+            {on:"2025-09",
+                what:"We receive the support from NSF on strengthening American infrastructure, particularly in Understanding and managing the societal impacts of infrastructure system service interruptions",
+                url:"https://www.nsf.gov/awardsearch/show-award?AWD_ID=2532870"},
+            {on:"2025-07",
+                what:"Saurabh Mohite participated in the IDEAAL DR2 – Increasing Diversity in and Equitable Access to Applied Learning in Disaster Research Response summer training program. Congratulations, Saurabh!"},
+            {on:"2025-01",
+                what:"Saurabh Mohite won 2025 Climate Health Frontier Conference Best Poster Award. Congratulations, Saurabh!"},
+            // ^^^^^^^^^^^^^^^^^^^^ END OF DEMO ITEMS ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            {on:"2024-11",
+                what:"We receive support from NSF on using Generative AI to develop synthetic population generation for disaster impact assessment.",
+                url:"https://www.nsf.gov/awardsearch/show-award/?AWD_ID=2443784&HistoricalAwards=false"},
+            {on:"2024-02",
+                what:"Dr. Dong receives an Early-Career Research Fellowship from the Gulf Research Program of the National Academies.",
+                url:"https://www.udel.edu/udaily/2024/february/disaster-research-shangjia-dong-algorithm-community-resilience-equity/?utm_source=UDaily+Subscribers&utm_campaign=9c23ab859b-udaily_daily_mc&utm_medium=email&utm_term=0_0b5034716d-9c23ab859b-264641573"},
+            {on:"2024-01",
+                what:"We receive support from NIST and NSF to investigate flood resilient acute care."},
+            {on:"2023-09",
+                what:"We welcome two new Ph.D. students, Saurabh Mohite and Xiao Qian, joining the lab. Welcome, Saurabh and Xiao!"},
+            {on:"2022-09",
+                what:"We are part of the NSF-funded CHEER Hub, a five-year project on hurricane risk, equity, and economic prosperity led by UD's Disaster Research Center.",
+                url:"https://www.drc.udel.edu/cheer/"},
+            {on:"2021-09",
+                what:"We welcome our first PhD student, Utkarsh Gangwal, to join the lab!"}
+            // {on:"2020-08",
+            //     what:"Dr. Shangjia Dong joined the University of Delaware as an Assistant Professor.",
+            //     url:"https://www.drc.udel.edu/news/Pages/DRC-Welcomes-New-Faculty,-Dr.-Shangjia-Dong.aspx"}
+        ];
+
+        (function () {
+            "use strict";
+
+            var SHOWN = 6;                       // how many show before collapsing
+            var MONTHS = ["Jan","Feb","Mar","Apr","May","Jun",
+                "Jul","Aug","Sep","Oct","Nov","Dec"];
+
+            var listEl  = document.getElementById('dl-newslist');
+            var moreEl  = document.getElementById('dl-news-more');
+            var groupEl = document.getElementById('dl-news-group');
+
+            var expanded   = false;   // flat view: are the older items showing?
+            var grouped    = false;   // year view instead of one flat list?
+            var activeYear = null;    // which year is unfolded
+
+            function parts(on) {
+                var bits = String(on).split('-');
+                var m = parseInt(bits[1], 10);
+                return {
+                    year:  bits[0],
+                    month: (m >= 1 && m <= 12) ? MONTHS[m - 1] : '',
+                    label: ((m >= 1 && m <= 12) ? MONTHS[m - 1] + ' ' : '') + bits[0]
+                };
+            }
+
+            // Years present in the data, newest first. Derived every time, so
+            // adding an item in a new year needs no change here.
+            function years() {
+                var seen = {}, out = [];
+                NEWS.forEach(function (item) {
+                    var y = parts(item.on).year;
+                    if (!seen[y]) { seen[y] = 0; out.push(y); }
+                    seen[y]++;
+                });
+                out.sort(function (a, b) { return b - a; });
+                return out.map(function (y) { return {year: y, count: seen[y]}; });
+            }
+
+            function rowHTML(item, dateText) {
+                var external = item.url && item.url.indexOf('http') === 0;
+                return '<div class="dl-newsrow">' +
+                    '<time datetime="' + item.on + '">' + dateText + '</time>' +
+                    '<p>' + item.what + '</p>' +
+                    (item.url
+                        ? '<a href="' + item.url + '"' +
+                        (external ? ' target="_blank" rel="noopener"' : '') +
+                        '>Read more &rsaquo;</a>'
+                        : '<span></span>') +
+                    '</div>';
+            }
+
+            function render() {
+                var html = '';
+
+                if (grouped) {
+                    var ys = years();
+                    // Land on the newest year, and fall back to it if the year
+                    // that was open no longer exists.
+                    var valid = ys.some(function (y) { return y.year === activeYear; });
+                    if (!valid) { activeYear = ys.length ? ys[0].year : null; }
+
+                    html += '<div class="dl-years" role="group" aria-label="News by year">';
+                    ys.forEach(function (y) {
+                        html += '<button class="dl-yearbtn" type="button" data-y="' + y.year +
+                            '" aria-pressed="' + (y.year === activeYear) + '">' + y.year +
+                            '<span class="dl-ycount">(' + y.count + ')</span></button>';
+                    });
+                    html += '</div>';
+
+                    // Only the open year's items. The year is on the button, so
+                    // each row shows just its month.
+                    NEWS.forEach(function (item) {
+                        var p = parts(item.on);
+                        if (p.year === activeYear) { html += rowHTML(item, p.month); }
+                    });
+                } else {
+                    (expanded ? NEWS : NEWS.slice(0, SHOWN)).forEach(function (item) {
+                        html += rowHTML(item, parts(item.on).label);
+                    });
+                }
+
+                listEl.innerHTML = html;
+
+                // "Show earlier" belongs to the flat view only.
+                var hideMore = grouped || NEWS.length <= SHOWN;
+                moreEl.hidden = hideMore;
+                if (!hideMore) {
+                    moreEl.textContent = expanded
+                        ? 'Show fewer'
+                        : 'Show ' + (NEWS.length - SHOWN) + ' earlier';
+                    moreEl.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+                }
+            }
+
+            // Year buttons are re-rendered, so the listener lives on the container.
+            listEl.addEventListener('click', function (e) {
+                var b = e.target;
+                while (b && b !== listEl && !(b.getAttribute && b.getAttribute('data-y'))) {
+                    b = b.parentNode;
+                }
+                if (!b || b === listEl) { return; }
+                activeYear = b.getAttribute('data-y');
+                render();
+            });
+
+            moreEl.addEventListener('click', function () {
+                expanded = !expanded;
+                render();
+            });
+
+            groupEl.addEventListener('click', function () {
+                grouped = !grouped;
+                if (grouped) { activeYear = null; }   // always land on the newest year
+                groupEl.setAttribute('aria-pressed', grouped ? 'true' : 'false');
+                groupEl.textContent = grouped ? 'Show as one list' : 'Group by year';
+                render();
+            });
+
+            render();
+        }());
+    </script>
+    <!--     News Area End -->
+
     <!--? Sponsor starts-->
-    <section class="work-company section-paddingt30" style="background: #2e0e8c;">
+    <section class="work-company section-paddingt30" style="background: #331391;">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-5 col-md-8">
+                <div class="col-lg-4 col-md-8">
                     <!-- Section Tittle -->
-                    <div class="section-tittle section-tittle2 mb-50">
+                    <div class="section-tittle section-tittle2">
                         <h2>Our Research Sponsors.</h2>
                         <p>We appreciate the support from our sponsors.</p>
                     </div>
                 </div>
-                <div class="col-lg-7">
-                    <div class="logo-area">
-                        <div class="row">
-                            <div class="col-lg-4 col-md-4 col-sm-6">
-                                <div class="single-logo mb-30">
-                                    <img src="assets/img/gallery/NSF_logo.png" alt="" width="200px">
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-6">
-                                <div class="single-logo mb-30">
-                                    <img src="assets/img/gallery/NASEM_fellowship.jpeg" alt="" width="180px">
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-6">
-                                <div class="single-logo mb-30">
-                                    <img src="assets/img/gallery/NIST_logo.png" alt="" width="200px">
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-6">
-                                <div class="single-logo mb-30">
-                                    <img src="assets/img/gallery/NOAA_logo.png" alt="" width="200px">
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-6">
-                                <div class="single-logo mb-30">
-                                    <img src="assets/img/gallery/DelDOT.png" alt="" width="180px">
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-6">
-                                <div class="single-logo mb-30">
-                                    <img src="assets/img/gallery/UD.png" alt="" width="200px">
-                                </div>
-                            </div>
+                <div class="col-lg-8">
+                    <!-- ============================================================
+                         Each logo's class sets where it sits: wave-r2c4 means
+                         row 2, column 4. Odd rows use columns 1/3/5/7, even rows
+                         2/4/6, which is what produces the stagger.
+
+                         To add a sponsor, uncomment the next free slot below and
+                         point it at your file. The band grows on its own - there
+                         is no padding to adjust. Row 4 classes (wave-r4c2 /
+                         wave-r4c4 / wave-r4c6) already exist in the stylesheet if
+                         you outgrow row 3.
+                         ============================================================ -->
+                    <div class="logo-area logo-wave">
+
+                        <!-- row 1 : columns 1, 3, 5 -->
+                        <div class="single-logo wave-r1c1">
+                            <img src="assets/img/gallery/NSF_logo.png" alt="" width="200px">
                         </div>
+                        <div class="single-logo wave-r1c3">
+                            <img src="assets/img/gallery/NASEM_fellowship.jpeg" alt="" width="180px">
+                        </div>
+                        <div class="single-logo wave-r1c5">
+                            <img src="assets/img/gallery/NIST_logo.png" alt="" width="220px">
+                        </div>
+
+                        <!-- row 2 : columns 2, 4 (offset into the gaps above) -->
+                        <div class="single-logo wave-r2c2">
+                            <img src="assets/img/gallery/NOAA_logo.png" alt="" width="200px">
+                        </div>
+                        <div class="single-logo wave-r2c4">
+                            <img src="assets/img/gallery/DelDOT.png" alt="" width="200px">
+                        </div>
+
+                        <!-- row 3 : column 3 live, columns 1 and 5 waiting -->
+                        <!-- free slot, row 3 left:
+                        <div class="single-logo wave-r3c1">
+                            <img src="assets/img/gallery/YOUR_LOGO.png" alt="" width="200px">
+                        </div>
+                        -->
+                        <div class="single-logo wave-r3c3">
+                            <img src="assets/img/gallery/UD.png" alt="" width="200px">
+                        </div>
+                        <!-- free slot, row 3 right:
+                        <div class="single-logo wave-r3c5">
+                            <img src="assets/img/gallery/YOUR_LOGO.png" alt="" width="200px">
+                        </div>
+                        -->
+
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-<!--    ? Blog Area Start-->
-    <section class="section-top-border home-blog-area section-paddingt30">
-    <div class="container">
-        <!-- Section Tittle -->
-        <div class="row justify-content-center">
-            <div class="col-lg-5 col-md-8">
-                <div class="section-tittle text-center mb-50">
-                    <h2>News</h2>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xl-6 col-lg-6 col-md-6">
-                <div class="home-blog-single mb-30">
-                    <div class="blog-img-cap">
-                        <div class="blog-img">
-                            <!-- Blog date -->
-                            <img src="" alt="">
-                            <div class="blog-date text-center">
-                                <span></span>
-                                <p></p>
-                            </div>
-                        </div>
-                        <div class="blog-cap">
-                            <p>November 2024</p>
-                            <h3> <a style="font-size: large"> We received funding from NSF EAGER to support synthetic population inventory development for better disaster impact analysis.</a></h3>
-                            <a href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=2443784&HistoricalAwards=false" class="more-btn">Read more »</a>
+    <!--? Sponsor ends-->
+</main>
+<footer>
+    <!-- Footer Start-->
+    <div class="footer-area footer-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
+                    <div class="single-footer-caption mb-50">
+                        <div class="footer-tittle">
+                            <h4>This Site</h4>
+                            <ul>
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="research.html">Research</a></li>
+                                <li><a href="team.html">Team</a></li>
+                                <li><a href="opportunity.html">Join Us</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6">
-                <div class="home-blog-single mb-30">
-                    <div class="blog-img-cap">
-                        <div class="blog-img">
-                            <!-- Blog date -->
-                            <img src="" alt="">
-                            <div class="blog-date text-center">
-                                <span></span>
-                                <p></p>
-                            </div>
-                        </div>
-                        <div class="blog-cap">
-                            <p>November 2024</p>
-                            <h3> <a style="font-size: large"> We have Ph.D. students opening in our lab. Students who are skilled at machine learning, deep learning,
-                                optimization, network analysis, mathematical modeling are welcome to apply.</a></h3>
-                            <a href="opportunity.html" class="more-btn">Read more »</a>
+                <div class="col-xl-5 col-lg-5 col-md-4 col-sm-6">
+                    <div class="single-footer-caption mb-50">
+                        <div class="footer-tittle">
+                            <h4>Important Link</h4>
+                            <ul>
+                                <li><a href="https://ccee.udel.edu/" target="_blank" rel="noopener">UD Civil, Construction, and Environmental Engr.</a></li>
+                                <li><a href="https://www.drc.udel.edu/" target="_blank" rel="noopener">Disaster Research Center</a></li>
+                                <li><a href="https://www.udel.edu/academics/colleges/grad/prospective-students/grad-admissions/" target="_blank" rel="noopener">UD Graduate Admission</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6">
-                <div class="home-blog-single mb-30">
-                    <div class="blog-img-cap">
-                        <div class="blog-img">
-                            <!-- Blog date -->
-                            <img src="" alt="">
-                            <div class="blog-date text-center">
-                                <span></span>
-                                <p></p>
-                            </div>
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6">
+                    <div class="single-footer-caption mb-50">
+                        <div class="footer-tittle">
+                            <h4>Contact Info</h4>
+                            <ul>
+                                <li> Shangjia Dong</li>
+                                <li> 344B DuPont Hall</li>
+                                <li> University of Delaware</li>
+                                <li> 127 The Green. Newark, DE 19716</li>
+                                <li> Email: sjdong(at)udel.edu</li>
+                            </ul>
                         </div>
-                        <div class="blog-cap">
-                            <p>October 2024</p>
-                            <h3> <a style="font-size: large"> Utkarsh has successfully passed his preliminary exam and is now officially a Ph.D. candidate!
-                                Xiao and Saurabh have also completed their qualifying exams and are on their way to embarking on their Ph.D. research journeys.  </a></h3>
-                            <a href="" class="more-btn">Read more »</a>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6">
-                <div class="home-blog-single mb-30">
-                    <div class="blog-img-cap">
-                        <div class="blog-img">
-                            <!-- Blog date -->
-                            <img src="" alt="">
-                            <div class="blog-date text-center">
-                                <span></span>
-                                <p></p>
-                            </div>
-                        </div>
-                        <div class="blog-cap">
-                            <p>September 2024</p>
-                            <h3> <a style="font-size: large"> Dr. Shangjia Dong was named as the Bentley Systems Early Career Professor  </a></h3>
-                            <a href="" class="more-btn">Read more »</a>
-                        </div>
-
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6">
-                <div class="home-blog-single mb-30">
-                    <div class="blog-img-cap">
-                        <div class="blog-img">
-                            <!-- Blog date -->
-                            <img src="" alt="">
-                            <div class="blog-date text-center">
-                                <span></span>
-                                <p></p>
-                            </div>
-                        </div>
-                        <div class="blog-cap">
-                            <p>June 2023</p>
-                            <h3> <a style="font-size: large"> Dr. Shangjia Dong was awarded the Early-Career Research Fellowship (ECRF) in Human Health and Community Resilience, the Gulf Research Program (GRP) of the National Academies of Sciences, Engineering, and Medicine </a></h3>
-                            <a href="https://www.nationalacademies.org/news/2023/06/gulf-research-program-awards-six-early-career-research-fellowships-in-human-health-and-community-resilience?utm_source=twitter&utm_medium=social&utm_term=nasem_gulf&utm_content=94b74200-fd75-465f-a6e5-e8811b7f7b67&utm_campaign=hootsuite" class="more-btn">Read more »</a>
-                        </div>
-
                     </div>
                 </div>
             </div>
         </div>
-
-<!--        <div class="row">-->
-<!--            -->
-<!--            -->
-
-<!--        </div>-->
-<!--        <nav class="blog-pagination justify-content-center d-flex">-->
-<!--            <ul class="pagination">-->
-<!--                <li class="page-item">-->
-<!--                    <a href="#" class="page-link" aria-label="Previous">-->
-<!--                        <i class="ti-angle-left"></i>-->
-<!--                    </a>-->
-<!--                </li>-->
-<!--                <li class="page-item active">-->
-<!--                    <a href="index.html" class="page-link">1</a>-->
-<!--                </li>-->
-<!--&lt;!&ndash;                <li class="page-item">&ndash;&gt;-->
-<!--&lt;!&ndash;                    <a href="index2.html" class="page-link">2</a>&ndash;&gt;-->
-<!--&lt;!&ndash;                </li>&ndash;&gt;-->
-<!--                <li class="page-item">-->
-<!--                    <a href="#" class="page-link" aria-label="Next">-->
-<!--                        <i class="ti-angle-right"></i>-->
-<!--                    </a>-->
-<!--                </li>-->
-<!--            </ul>-->
-<!--        </nav>-->
-
     </div>
-</section>
-<!--     Blog Area End -->
-    </main>
-    <footer>
-        <!-- Footer Start-->
-        <div class="footer-area footer-padding">
-            <div class="container">
-                <div class="row d-flex justify-content-between">
-                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6">
-                       <div class="single-footer-caption mb-50">
-                         <div class="single-footer-caption mb-30">
-                             <div class="footer-tittle">
-                                 <h4>Visitor</h4>
-                                 <div class="footer-pera">
-                                     <script type='text/javascript' id='clustrmaps' src='//cdn.clustrmaps.com/map_v2.js?cl=ffffff&w=390&t=n&d=RoZUKyRQRl44oHv0AITzhvGXtWDSY3BZ1lt0Cqfe8Uo&co=060217'></script><!--                                     <p>We are a group of dedicated researchers focusing on interdisciplinary research to provide-->
-<!--                                         equitable, smart, and resilient solutions to prepare our city for future challenges. </p>-->
-                                </div>
-                             </div>
-                         </div>
-                       </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-5">
-                        <div class="single-footer-caption mb-50">
-                            <div class="footer-tittle">
-                                <h4>Important Link</h4>
-                                <ul>
-                                    <li><a href="index.html">Home</a></li>
-                                    <li><a href="research.html">Research</a></li>
-                                    <li><a href="publication.html">Publication</a></li>
-                                    <li><a href="team.html">People</a></li>
-                                    <li><a href="teaching.html">Teaching</a></li>
-                                    <li><a href="resource.html">Resources</a></li>
-                                </ul>
-                            </div>
+    <div class="footer-bottom-area footer-bg">
+        <div class="container">
+            <div class="footer-border">
+                <div class="row d-flex justify-content-between align-items-center">
+                    <div class="col-xl-10 col-lg-8 ">
+                        <div class="footer-copy-right">
+                            <p>
+                                Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved by Shangjia Dong.
+                            </p>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-5">
-                        <div class="single-footer-caption mb-50">
-                            <div class="footer-tittle">
-                                <h4>Contact Info</h4>
-                                <ul>
-                                    <li> Shangjia Dong</li>
-                                    <li> 344B DuPont Hall</li>
-                                    <li> Department of Civil, Construction, and Environmental Engineering</li>
-                                    <li> Disaster Research Center</li>
-                                    <li> University of Delaware</li>
-                                    <li> Newark, Delaware. 19716 </li>
-                                    <li> Email : sjdong(at)udel.edu</li>
-                                </ul>
-                            </div>
+                    <div class="col-xl-2 col-lg-4">
+                        <div class="footer-social f-right">
+                            <a href="https://scholar.google.com/citations?hl=en&amp;user=9mKYf9cAAAAJ&amp;view_op=list_works&amp;sortby=pubdate" target="_blank" rel="noopener" aria-label="Google Scholar"><i class="fab fa-google"></i></a>
+                            <a href="https://ccee.udel.edu/faculty/shangjia-dong/" target="_blank" rel="noopener" aria-label="UD faculty profile"><i class="fas fa-globe"></i></a>
+                            <a href="https://www.linkedin.com/in/shangjia-dong/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="footer-bottom-area footer-bg">
-            <div class="container">
-                <div class="footer-border">
-                    <div class="row d-flex justify-content-between align-items-center">
-                        <div class="col-xl-10 col-lg-8 ">
-                            <div class="footer-copy-right">
-                                <p>
-                                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved by Shangjia Dong. Updated @ 02/2025.
-                                    </p>
-                            </div>
-                        </div>
-                        <div class="col-xl-2 col-lg-4">
-                            <div class="footer-social f-right">
-                                <a href="https://scholar.google.com/citations?hl=en&user=9mKYf9cAAAAJ&view_op=list_works&sortby=pubdate"><i class="fab fa-google"></i></a>
-                                <a href="https://ce.udel.edu/people/faculty-profile/?id=749"><i class="fas fa-globe"></i></a>
-                                <a href="https://www.linkedin.com/in/shangjia-dong/>"<i class="fab fa-linkedin"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <!-- Scroll Up -->
-    <div id="back-top" >
-        <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
     </div>
+</footer>
+<!-- Scroll Up -->
+<div id="back-top" >
+    <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
+</div>
 
-    <!-- JS here -->
+<!-- JS here -->
 
-    <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
-    <!-- Jquery, Popper, Bootstrap -->
-    <script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
-    <script src="./assets/js/popper.min.js"></script>
-    <script src="./assets/js/bootstrap.min.js"></script>
-    <!-- Jquery Mobile Menu -->
-    <script src="./assets/js/jquery.slicknav.min.js"></script>
+<script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
+<!-- Jquery, Popper, Bootstrap -->
+<script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
+<script src="./assets/js/popper.min.js"></script>
+<script src="./assets/js/bootstrap.min.js"></script>
+<!-- Jquery Mobile Menu -->
+<script src="./assets/js/jquery.slicknav.min.js"></script>
 
-    <!-- Jquery Slick , Owl-Carousel Plugins -->
-    <script src="./assets/js/owl.carousel.min.js"></script>
-    <script src="./assets/js/slick.min.js"></script>
-    <!-- One Page, Animated-HeadLin -->
-    <script src="./assets/js/wow.min.js"></script>
-    <script src="./assets/js/animated.headline.js"></script>
-    <script src="./assets/js/jquery.magnific-popup.js"></script>
+<!-- Jquery Slick , Owl-Carousel Plugins -->
+<script src="./assets/js/owl.carousel.min.js"></script>
+<script src="./assets/js/slick.min.js"></script>
+<!-- One Page, Animated-HeadLin -->
+<script src="./assets/js/wow.min.js"></script>
+<script src="./assets/js/animated.headline.js"></script>
+<script src="./assets/js/jquery.magnific-popup.js"></script>
 
-    <!-- Date Picker -->
-    <script src="./assets/js/gijgo.min.js"></script>
-    <!-- Nice-select, sticky -->
-    <script src="./assets/js/jquery.nice-select.min.js"></script>
-    <script src="./assets/js/jquery.sticky.js"></script>
-    
-    <!-- counter , waypoint -->
-    <script src="./assets/js/jquery.counterup.min.js"></script>
-    <script src="./assets/js/waypoints.min.js"></script>
-    <script src="./assets/js/jquery.countdown.min.js"></script>
-    <!-- contact js -->
-    <script src="./assets/js/contact.js"></script>
-    <script src="./assets/js/jquery.form.js"></script>
-    <script src="./assets/js/jquery.validate.min.js"></script>
-    <script src="./assets/js/mail-script.js"></script>
-    <script src="./assets/js/jquery.ajaxchimp.min.js"></script>
-    
-    <!-- Jquery Plugins, main Jquery -->	
-    <script src="./assets/js/plugins.js"></script>
-    <script src="./assets/js/main.js"></script>
-    
-    </body>
+<!-- Date Picker -->
+<script src="./assets/js/gijgo.min.js"></script>
+<!-- Nice-select, sticky -->
+<script src="./assets/js/jquery.nice-select.min.js"></script>
+<script src="./assets/js/jquery.sticky.js"></script>
+
+<!-- counter , waypoint -->
+<script src="./assets/js/jquery.counterup.min.js"></script>
+<script src="./assets/js/waypoints.min.js"></script>
+<script src="./assets/js/jquery.countdown.min.js"></script>
+<!-- contact js -->
+<script src="./assets/js/contact.js"></script>
+<script src="./assets/js/jquery.form.js"></script>
+<script src="./assets/js/jquery.validate.min.js"></script>
+<script src="./assets/js/mail-script.js"></script>
+<script src="./assets/js/jquery.ajaxchimp.min.js"></script>
+
+<!-- Jquery Plugins, main Jquery -->
+<script src="./assets/js/plugins.js"></script>
+<script src="./assets/js/main.js"></script>
+
+</body>
 </html>
