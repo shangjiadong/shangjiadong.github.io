@@ -1,14 +1,14 @@
 <!doctype html>
-<html class="no-js" lang="zxx">
+<html class="no-js" lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title> Shangjia Dong Research Group</title>
-    <meta content="Shangjia Dong's interdisciplinary research focuses on the risk and resilience modeling and analysis of the human-disaster-built environment nexus."
+    <title>Research &mdash; Shangjia Dong Research Group</title>
+    <meta content="Shangjia Dong's interdisciplinary research focuses on the risk and resilience modeling and analysis of the human-disaster-built environment nexus.."
           name="description" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="site.webmanifest">
-    <link rel="shortcut icon" type="image/x-icon" href="assets/img/page_icon.png"">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/page_icon.png">
 
     <!-- CSS here -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -23,6 +23,284 @@
     <link rel="stylesheet" href="assets/css/slick.css">
     <link rel="stylesheet" href="assets/css/nice-select.css">
     <link rel="stylesheet" href="assets/css/style.css">
+
+    <!-- ==================================================================
+         Research page components.
+         Everything is scoped under .dl-research so it cannot collide with
+         the theme's own classes. Colors are taken from style.css:
+         #331391 theme indigo, #1f2b7b navy, #10285d body, #26264b headings,
+         #f9f9ff and #f0e9ff the lavender off-whites.
+         Fonts (Roboto / Sarabun / Sen) are already loaded by style.css.
+         Move this block into style.css later if you prefer it there.
+         ================================================================== -->
+    <style>
+        /* The theme ships .slider-height2 at 450px and .section-padding2 at 200px
+           top and bottom, which together put ~650px of band and whitespace above
+           the first word of content. Both are cut back here, on this page only. */
+        .dl-hero .slider-height2{height:230px}
+        @media (max-width:991px){ .dl-hero .slider-height2{height:190px} }
+        @media (max-width:767px){ .dl-hero .slider-height2{height:150px} }
+
+        .dl-research{
+            padding-top:60px;
+            padding-bottom:80px;
+            --dl-indigo:#331391;
+            --dl-navy:#1f2b7b;
+            --dl-body:#10285d;
+            --dl-head:#26264b;
+            --dl-sunk:#f9f9ff;
+            --dl-tint:#f0e9ff;
+            --dl-rule:#e4ddf6;
+            --dl-muted:#6b74a4;
+            --dl-gold:#b8860b;
+        }
+        .dl-research .dl-wrap{max-width:1170px;margin:0 auto;padding:0 20px}
+
+        /* intro - spans the full container so its right edge lines up with the
+           theme sections and paper rows below it */
+        .dl-research .dl-lede{
+            font-size:19px;line-height:34px;color:var(--dl-body);
+            max-width:none;margin:0
+        }
+
+        /* "Meet the team" link closing the opening paragraph.
+           Deliberately an underlined text link rather than a filled button: the
+           active tab below and the Google Scholar button are both solid indigo,
+           and a third filled element here would flatten the hierarchy. */
+        .dl-research .dl-meet{
+            display:inline-block;margin-left:8px;white-space:nowrap;
+            font-family:"Sen",sans-serif;font-size:17px;font-weight:700;
+            color:var(--dl-indigo);text-decoration:none;
+            border-bottom:2px solid var(--dl-tint);padding-bottom:2px
+        }
+        .dl-research .dl-meet:hover,
+        .dl-research .dl-meet:focus{color:var(--dl-navy);border-bottom-color:var(--dl-navy)}
+        .dl-research .dl-meet .dl-arrow{
+            display:inline-block;margin-left:6px;transition:transform .15s ease
+        }
+        .dl-research .dl-meet:hover .dl-arrow{transform:translateX(4px)}
+        @media (prefers-reduced-motion:reduce){
+            .dl-research .dl-meet .dl-arrow{transition:none}
+            .dl-research .dl-meet:hover .dl-arrow{transform:none}
+        }
+
+        /* Theme jump menu.
+           A grid, not a flex row, so the buttons stay equal width and wrap into
+           tidy rows on their own as research areas are added: up to 4 per row,
+           so 5-8 areas become two rows with no change to this CSS. */
+        .dl-research .dl-jump{
+            display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+            gap:12px;
+            padding:26px 0;border-top:1px solid var(--dl-rule);
+            border-bottom:1px solid var(--dl-rule);margin-top:34px
+        }
+        @media (max-width:767px){
+            .dl-research .dl-jump{grid-template-columns:1fr;gap:10px}
+        }
+        .dl-research .dl-jump a{
+            font-family:"Sen",sans-serif;font-size:16px;font-weight:700;
+            letter-spacing:.02em;line-height:1.3;text-align:center;
+            color:var(--dl-indigo);text-decoration:none;
+            border:1px solid var(--dl-rule);border-radius:8px;padding:16px 14px;
+            display:flex;align-items:center;justify-content:center;min-height:100%;
+            transition:background .15s,color .15s,border-color .15s
+        }
+        .dl-research .dl-jump a:hover,
+        .dl-research .dl-jump a:focus{background:var(--dl-tint);border-color:var(--dl-indigo)}
+        /* the area currently being viewed */
+        .dl-research .dl-jump a.dl-active,
+        .dl-research .dl-jump a.dl-active:hover,
+        .dl-research .dl-jump a.dl-active:focus{
+            background:var(--dl-indigo);border-color:var(--dl-indigo);color:#fff;
+            box-shadow:0 2px 10px rgba(51,19,145,.22)
+        }
+        .dl-research .dl-jump a.dl-draft{border-style:dashed;color:var(--dl-muted)}
+        .dl-research .dl-jump a.dl-draft:hover{background:var(--dl-muted);border-color:var(--dl-muted);color:#fff}
+
+        /* Only the selected area is shown. Without JS every area stays visible,
+           so the page still works as one long document. */
+        .dl-research .dl-hide{display:none}
+
+        /* one research theme */
+        /* --dl-anchor-offset is measured from the real sticky header at runtime
+           (see the script at the end of the page) so jumping to an area never
+           lands under the banner. The 130px is only a fallback. */
+        html{scroll-behavior:smooth}
+        @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
+        .dl-research .dl-theme{
+            padding:42px 0 10px;
+            scroll-margin-top:var(--dl-anchor-offset,130px)
+        }
+        .dl-research .dl-theme:focus{outline:none}
+        .dl-research .dl-eyebrow{
+            font-family:"Sen",sans-serif;font-size:11px;font-weight:700;
+            letter-spacing:.17em;text-transform:uppercase;color:var(--dl-indigo);
+            display:block;margin-bottom:10px
+        }
+        .dl-research .dl-theme h2{
+            font-family:"Sarabun",sans-serif;font-size:30px;line-height:1.24;
+            color:var(--dl-head);font-weight:600;margin:0
+        }
+        .dl-research .dl-themebody{
+            display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:44px;
+            margin-top:18px;align-items:start
+        }
+        .dl-research .dl-themebody.dl-nofig{grid-template-columns:minmax(0,1fr)}
+        @media (max-width:1199px){
+            .dl-research .dl-themebody{grid-template-columns:minmax(0,1fr) 330px;gap:36px}
+        }
+        .dl-research .dl-themebody p{margin:0 0 15px;min-width:0;color:var(--dl-body)}
+        .dl-research .dl-themebody p:last-child{margin-bottom:0}
+        /*.dl-research .dl-figure{*/
+        /*    border:1px solid var(--dl-rule);border-radius:8px;background:var(--dl-sunk);*/
+        /*    padding:14px;max-width:100%;overflow:hidden;text-align:center*/
+        .dl-research .dl-figure{
+            max-width:100%;overflow:hidden;text-align:center
+        }
+        .dl-research .dl-figure img{width:100%;height:auto;display:block}
+        .dl-research .dl-figure .dl-ph{
+            font-family:"Sen",sans-serif;font-size:12px;color:var(--dl-muted);line-height:1.5
+        }
+
+        /* Tags - the systems an area works with and the methods it uses.
+           A definition list: the label is the term, the pills are the definition.
+           An area with no systems/methods/tags renders nothing at all, so the
+           rule above this block never appears on its own. */
+        .dl-research .dl-tags{
+            display:grid;grid-template-columns:auto minmax(0,1fr);
+            gap:10px 18px;align-items:baseline;
+            margin:22px 0 0;padding-top:18px;border-top:1px solid var(--dl-rule)
+        }
+        .dl-research .dl-tags dt{
+            font-family:"Sen",sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;
+            text-transform:uppercase;color:var(--dl-muted);white-space:nowrap;
+            margin:0;padding-top:4px
+        }
+        .dl-research .dl-tags dd{margin:0;display:flex;flex-wrap:wrap;gap:7px}
+        .dl-research .dl-tag{
+            display:inline-block;font-size:13px;line-height:1.3;
+            color:var(--dl-indigo);background:var(--dl-tint);
+            border-radius:40px;padding:5px 13px;white-space:nowrap
+        }
+        /* Narrow screens: the label sits above its pills instead of beside them. */
+        @media (max-width:600px){
+            .dl-research .dl-tags{grid-template-columns:1fr;gap:5px 0}
+            .dl-research .dl-tags dd{margin-bottom:9px}
+        }
+
+        /* papers */
+        .dl-research .dl-papers{margin-top:32px}
+        .dl-research .dl-subhead{
+            font-family:"Sen",sans-serif;font-size:11px;font-weight:700;letter-spacing:.14em;
+            text-transform:uppercase;color:var(--dl-muted);
+            padding-bottom:10px;border-bottom:1px solid var(--dl-rule);margin:0 0 2px
+        }
+        .dl-research .dl-publist{
+            display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+            column-gap:40px
+        }
+        @media (max-width:991px){
+            .dl-research .dl-publist{grid-template-columns:minmax(0,1fr)}
+        }
+        .dl-research .dl-pub{
+            padding:13px 0;border-bottom:1px solid var(--dl-rule);min-width:0
+        }
+        .dl-research .dl-pub h3{
+            font-family:"Sarabun",sans-serif;font-size:16px;font-weight:600;line-height:1.36;
+            color:var(--dl-head);margin:0 0 3px
+        }
+        .dl-research .dl-pub h3 a{
+            color:var(--dl-head);text-decoration:none;border-bottom:1px solid transparent
+        }
+        .dl-research .dl-pub h3 a:hover{color:var(--dl-indigo);border-bottom-color:var(--dl-indigo)}
+        /* Author lists run to a dozen names. Cap them at two lines; the full list
+           is still in the title attribute on hover. */
+        .dl-research .dl-pub .dl-a{
+            margin:0;font-size:14px;line-height:21px;color:var(--dl-muted);
+            display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
+            overflow:hidden
+        }
+        .dl-research .dl-pub .dl-a .dl-me{color:var(--dl-body);font-weight:500}
+        .dl-research .dl-pub .dl-v{margin:1px 0 0;font-size:14px;line-height:21px;color:var(--dl-muted)}
+        .dl-research .dl-pub .dl-v em{font-style:italic;color:var(--dl-body)}
+        .dl-research .dl-badge{
+            display:inline-block;margin-top:9px;font-family:"Sen",sans-serif;font-size:11px;
+            letter-spacing:.06em;text-transform:uppercase;color:var(--dl-gold);
+            border:1px solid var(--dl-gold);border-radius:3px;padding:3px 9px
+        }
+        .dl-research .dl-nopapers{padding:18px 0;font-size:15px;color:var(--dl-muted);font-style:italic}
+
+        .dl-research .dl-more{
+            font-family:"Sen",sans-serif;font-size:13px;letter-spacing:.03em;
+            background:none;border:1px solid var(--dl-rule);border-radius:40px;
+            color:var(--dl-indigo);padding:9px 19px;margin-top:18px;cursor:pointer;
+            transition:background .15s,color .15s,border-color .15s
+        }
+        .dl-research .dl-more:hover{background:var(--dl-indigo);border-color:var(--dl-indigo);color:#fff}
+
+        /* funding */
+        .dl-research .dl-funding{margin-top:30px}
+        /* Cards keep a sane width instead of stretching across the wider container
+           when an area has only one or two grants. */
+        .dl-research .dl-fundgrid{
+            display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,360px));
+            gap:14px;margin-top:14px;justify-content:start
+        }
+        .dl-research .dl-fund{
+            border:1px solid var(--dl-rule);border-left:3px solid var(--dl-indigo);
+            border-radius:0 7px 7px 0;background:var(--dl-sunk);padding:16px 18px;min-width:0
+        }
+        .dl-research .dl-fund .dl-sponsor{
+            font-family:"Sen",sans-serif;font-size:11px;font-weight:700;letter-spacing:.11em;
+            text-transform:uppercase;color:var(--dl-indigo);display:block;margin-bottom:7px
+        }
+        .dl-research .dl-fund .dl-ft{
+            font-family:"Sarabun",sans-serif;font-size:16px;font-weight:600;line-height:1.38;
+            color:var(--dl-head);margin:0 0 8px
+        }
+        .dl-research .dl-fund .dl-fm{margin:0;font-size:13px;line-height:21px;color:var(--dl-muted)}
+        .dl-research .dl-fund .dl-fm .dl-role{color:var(--dl-body);font-weight:500}
+        .dl-research .dl-fund.dl-todo{
+            border-left-style:dashed;border-left-color:var(--dl-muted);background:transparent
+        }
+        .dl-research .dl-fund.dl-todo .dl-sponsor{color:var(--dl-muted)}
+        .dl-research .dl-fund.dl-todo .dl-ft{color:var(--dl-muted);font-weight:400;font-style:italic}
+
+        /* a theme still being drafted */
+        .dl-research .dl-theme.dl-draft{
+            border:1px dashed var(--dl-muted);border-radius:10px;
+            padding:36px 28px;margin-top:52px;background:var(--dl-sunk)
+        }
+        .dl-research .dl-theme.dl-draft .dl-eyebrow,
+        .dl-research .dl-theme.dl-draft h2{color:var(--dl-muted)}
+        .dl-research .dl-theme.dl-draft h2{font-weight:500}
+        .dl-research .dl-theme.dl-draft .dl-themebody p{color:var(--dl-muted);font-style:italic}
+
+        /* Google Scholar call-out */
+        .dl-research .dl-scholar{
+            margin:52px 0 0;padding:34px 30px;border-radius:10px;
+            background:var(--dl-sunk);border:1px solid var(--dl-rule);text-align:center
+        }
+        .dl-research .dl-scholar h2{
+            font-family:"Sarabun",sans-serif;font-size:22px;color:var(--dl-head);
+            font-weight:600;margin:0 0 10px
+        }
+        .dl-research .dl-scholar p{
+            margin:0 auto 22px;max-width:52ch;font-size:16px;line-height:27px;color:var(--dl-muted)
+        }
+        .dl-research .dl-scholar a.dl-btn{
+            display:inline-block;font-family:"Sen",sans-serif;font-size:13px;letter-spacing:.07em;
+            text-transform:uppercase;background:var(--dl-indigo);color:#fff;
+            text-decoration:none;padding:14px 30px;border-radius:40px;line-height:1
+        }
+        .dl-research .dl-scholar a.dl-btn:hover{background:var(--dl-navy);color:#fff}
+
+        @media (max-width:767px){
+            .dl-research .dl-themebody{grid-template-columns:1fr;gap:22px}
+            .dl-research .dl-figure{max-width:320px}
+            .dl-research .dl-theme h2{font-size:24px}
+        }
+    </style>
 </head>
 <body>
 <!-- ? Preloader Start -->
@@ -46,7 +324,7 @@
                     <!-- Logo -->
                     <div class="col-xl-2 col-lg-2 col-md-1">
                         <div class="logo">
-                            <a href="index.html"><img src="assets/img/logo/lab-logo-resc.png" alt="" width="320"></a>
+                            <a href="index.html"><img src="assets/img/logo/lab_logo4_trans.png" alt="Shangjia Dong Research Group" width="300"></a>
                         </div>
                     </div>
                     <div class="col-xl-10 col-lg-10 col-md-10">
@@ -56,20 +334,14 @@
                                 <nav>
                                     <ul id="navigation">
                                         <li><a href="index.html" style="font-size: larger">Home</a></li>
-                                        <li><a href="research.html" style="font-size: larger">Research</a></li>
-                                        <li><a href="publication.html" style="font-size: larger">Publication</a>
+                                        <li><a href="research.html" style="font-size: larger">Research</a>
                                             <ul class="submenu">
-                                                <li><a href="publication.html" style="font-size: medium">Journal</a></li>
-                                                <li><a href="conference.html" style="font-size: medium">Conference</a></li>
+                                                <li><a href="research.html" style="font-size: medium">Research Areas</a></li>
+                                                <li><a href="https://scholar.google.com/citations?hl=en&amp;user=9mKYf9cAAAAJ&amp;view_op=list_works&amp;sortby=pubdate" target="_blank" rel="noopener" style="font-size: medium">All Publications</a></li>
                                             </ul>
                                         </li>
-                                        <li><a href="team.html" style="font-size: larger">People</a>
-                                            <ul class="submenu">
-                                                <li><a href="team.html" style="font-size: medium">Team</a></li>
-                                                <li><a href="opportunity.html" style="font-size: medium">Join Us</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="teaching.html" style="font-size: larger">Teaching</a></li>
+                                        <li><a href="team.html" style="font-size: larger">Team</a></li>
+                                        <li><a href="opportunity.html" style="font-size: larger">Join Us</a></li>
                                     </ul>
                                 </nav>
                             </div>
@@ -89,7 +361,7 @@
 
 <main>
     <!--? Hero Start -->
-    <div class="slider-area2">
+    <div class="slider-area2 dl-hero">
         <div class="slider-height2 d-flex align-items-center">
             <div class="container">
                 <div class="row">
@@ -102,152 +374,79 @@
             </div>
         </div>
     </div>
+    <!-- Hero End -->
 
-    <section class="about-low-area section-padding30">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-7 col-md-12">
-                    <div class="about-caption mb-50">
-                        <!-- Section Tittle -->
-                        <div class="section-tittle mb-35">
-                            <h2>Overview</h2>
-                        </div>
-                        <p style="font-size: large"> Our interdisciplinary research focuses on designing innovative engineering methods
-                            and solutions that facilitate data integration, system analytics, and risk-informed decision-making
-                            for a range of resilience and adaptation challenges. We address pressing challenges in climate change adaptation,
-                            protection of critical infrastructure, and resilience in urban systems through several key approaches: (1) Analyzing human responses to infrastructure failures and service outages during disasters to inform
-                            effective strategies and equitable resource allocation. (2) Developing algorithmic frameworks that model and simulate interdependencies within socio-technical systems,
-                            identifying vulnerabilities and strengthening resilience. (3) Employing data-driven analytics alongside advanced AI and network methodologies to generate actionable
-                            insights that support informed, adaptive decision-making. (4) Advancing resilience planning in preparing for and adapting to climate change.</p>
-                    </div>
-<!--                    <a href="#" class="btn mt-50">Learn more about our research</a>-->
-                </div>
-                <div class="col-lg-5 col-md-12">
-                    <!-- about-img -->
-                    <div class="about-img ">
-                        <div class="about-font-img d-none d-lg-block">
-                            <img src="assets/img/elements/research_overview.png" alt="" style="width: 680px">
-                        </div>
-                        <!--                        <div class="about-back-img ">-->
-                        <!--                            <img src="assets/img/gallery/about1.png" alt="">-->
-                    </div>
-                </div>
-            </div>
+    <!--? Research Areas Start -->
+    <section class="dl-research">
+        <div class="dl-wrap">
+
+            <p class="dl-lede">Hazards intensify, resilience stays in tension with cost, and uncertainty compounds across climate, human behavior, and the built environment.
+                We work from the human–disaster–built environment nexus, a computational framework for modeling people, infrastructure,
+                and hazard as one coupled system. The unifying thread is human–infrastructure interaction. The choices households make
+                about where to live, where to work, which services to seek, and how to cope when a system fails are what determine whether
+                a disruption stays contained or cascades into a disaster. Representing that human dimension sharpens the questions and
+                demands more of the methods, so we develop new algorithms, models, and tools that represent people and their surrounding
+                physical systems as a coupled system, from household resolution to community scale. We build them to support risk-informed
+                decisions about what to protect, what to restore, and for whom.<a class="dl-meet" href="team.html">Meet the team<span class="dl-arrow" aria-hidden="true">&rarr;</span></a></p>
+
+            <!-- Jump menu. Built from the THEMES list below; do not edit by hand. -->
+            <nav class="dl-jump" id="dl-jump" aria-label="Research areas"></nav>
+
+            <!-- Research areas render here. -->
+            <div id="dl-themes"></div>
+
+            <section class="dl-scholar">
+                <h2>Full publication record</h2>
+                <p>The papers above are selected work in each research area. The complete list can be found on Google Scholar.</p>
+                <a class="dl-btn" href="https://scholar.google.com/citations?hl=en&amp;user=9mKYf9cAAAAJ&amp;view_op=list_works&amp;sortby=pubdate"
+                   target="_blank" rel="noopener">View Google Scholar profile</a>
+            </section>
+
         </div>
     </section>
-
-    <!-- Hero End -->
-    <!-- Start Sample Area -->
-    <!-- End Sample Area -->
-    <!-- Start Button -->
-    <!-- End Button -->
-    <!-- Start Align Area -->
-    <div class="whole-wrap">
-        <div class="container box_1170">
-<!--            <h3 class="mb-30">Research Area</h3>-->
-            <div class="section-top-border">
-                <h3 class="mb-30">Disaster-resilient Infrastructure Systems</h3>
-                <div class="row">
-                    <div class="col-md-3">
-                        <img src="assets/img/elements/multilayer_network.png" alt="" class="img-fluid">
-                    </div>
-                    <div class="col-md-9 mt-sm-20">
-                        <p>The increasing challenges posed by urbanization, climate change, and aging infrastructure
-                            exacerbate the impacts of natural hazards. To effectively understand the resilience of
-                            infrastructure systems, new methods and tools are needed to accurately capture the failure
-                            dynamics across networks and assess the consequences of such disruptions. Our research leverages
-                            data-driven, network-based modeling and simulation techniques to evaluate the robustness and
-                            vulnerability of infrastructure systems, as well as to develop strategies for hazard mitigation.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section-top-border text-right">
-                <h3 class="mb-30"> Coupled Human-Infrastructure System Analytics </h3>
-                <div class="row">
-                    <div class="col-md-9">
-                        <p class="text-right">Community resilience is driven by the complex interactions between human behavior
-                            and infrastructure systems. Different communities engage with, rely on, and access infrastructure
-                            in unique ways, particularly during disruptions, making the impacts of disasters uneven across
-                            communities. Vulnerable groups, such as those with limited resources or access to services,
-                            are particularly at risk due to their reduced capacity for disaster preparedness, response,
-                            and recovery. Our research seeks to develop algorithmic frameworks that model and simulate the
-                            interdependencies within socio-technical systems, providing a deeper understanding of system
-                            vulnerabilities and how they influence community resilience. </p>
-                    </div>
-                    <div class="col-md-3">
-                        <img src="assets/img/elements/DTI.png" alt="" class="img-fluid">
-                    </div>
-                </div>
-            </div>
-
-            <div class="section-top-border">
-                <h3 class="mb-30">AI for Urban Sciences</h3>
-                <div class="row">
-                    <div class="col-md-3">
-                        <img src="assets/img/elements/smart_resilient_city.png" alt="" class="img-fluid">
-                    </div>
-                    <div class="col-md-9 mt-sm-20">
-                        <p>Smart devices exchange information through interconnected sensors and infrastructures to enhance
-                            urban system efficiency. This increasing interconnectivity fosters new interactions between humans
-                            and urban environments, generating vast amounts of data that enhance our understanding and modeling
-                            of urban dynamics. Our research seeks to leverage this big data and AI tools to develop smart city applications that promote
-                            resilient, healthy, and equitable urban living environments.</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-    <!-- End Align Area -->
+    <!-- Research Areas End -->
 </main>
+
 <footer>
     <!-- Footer Start-->
     <div class="footer-area footer-padding">
         <div class="container">
-            <div class="row d-flex justify-content-between">
-                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6">
-                    <div class="single-footer-caption mb-50">
-                        <div class="single-footer-caption mb-30">
-                            <div class="footer-tittle">
-                                <h4>Visitor</h4>
-                                <div class="footer-pera">
-                                    <script type='text/javascript' id='clustrmaps' src='//cdn.clustrmaps.com/map_v2.js?cl=ffffff&w=390&t=n&d=RoZUKyRQRl44oHv0AITzhvGXtWDSY3BZ1lt0Cqfe8Uo&co=060217'></script><!--                                     <p>We are a group of dedicated researchers focusing on interdisciplinary research to provide-->
-                                    <!--                                         equitable, smart, and resilient solutions to prepare our city for future challenges. </p>-->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-5">
+            <div class="row">
+                <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
                     <div class="single-footer-caption mb-50">
                         <div class="footer-tittle">
-                            <h4>Important Link</h4>
+                            <h4>This Site</h4>
                             <ul>
                                 <li><a href="index.html">Home</a></li>
                                 <li><a href="research.html">Research</a></li>
-                                <li><a href="publication.html">Publication</a></li>
-                                <li><a href="team.html">People</a></li>
-                                <li><a href="teaching.html">Teaching</a></li>
-                                <li><a href="resource.html">Resources</a></li>
+                                <li><a href="team.html">Team</a></li>
+                                <li><a href="opportunity.html">Join Us</a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-5">
+                <div class="col-xl-5 col-lg-5 col-md-4 col-sm-6">
+                    <div class="single-footer-caption mb-50">
+                        <div class="footer-tittle">
+                            <h4>Important Link</h4>
+                            <ul>
+                                <li><a href="https://ccee.udel.edu/" target="_blank" rel="noopener">UD Civil, Construction, and Environmental Engr.</a></li>
+                                <li><a href="https://www.drc.udel.edu/" target="_blank" rel="noopener">Disaster Research Center</a></li>
+                                <li><a href="https://www.udel.edu/academics/colleges/grad/prospective-students/grad-admissions/" target="_blank" rel="noopener">UD Graduate Admission</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6">
                     <div class="single-footer-caption mb-50">
                         <div class="footer-tittle">
                             <h4>Contact Info</h4>
                             <ul>
                                 <li> Shangjia Dong</li>
                                 <li> 344B DuPont Hall</li>
-                                <li> Department of Civil, Construction, and Environmental Engineering</li>
-                                <li> Disaster Research Center</li>
                                 <li> University of Delaware</li>
-                                <li> Newark, Delaware. 19716 </li>
-                                <li> Email : sjdong(at)udel.edu</li>
+                                <li> 127 The Green. Newark, DE 19716</li>
+                                <li> Email: sjdong(at)udel.edu</li>
                             </ul>
                         </div>
                     </div>
@@ -268,9 +467,9 @@
                     </div>
                     <div class="col-xl-2 col-lg-4">
                         <div class="footer-social f-right">
-                            <a href="https://scholar.google.com/citations?hl=en&user=9mKYf9cAAAAJ&view_op=list_works&sortby=pubdate"><i class="fab fa-google"></i></a>
-                            <a href="https://ce.udel.edu/people/faculty-profile/?id=749"><i class="fas fa-globe"></i></a>
-                            <a href="https://www.linkedin.com/in/shangjia-dong/>"<i class="fab fa-linkedin"></i></a>
+                            <a href="https://scholar.google.com/citations?hl=en&amp;user=9mKYf9cAAAAJ&amp;view_op=list_works&amp;sortby=pubdate" target="_blank" rel="noopener" aria-label="Google Scholar"><i class="fab fa-google"></i></a>
+                            <a href="https://ccee.udel.edu/faculty/shangjia-dong/" target="_blank" rel="noopener" aria-label="UD faculty profile"><i class="fas fa-globe"></i></a>
+                            <a href="https://www.linkedin.com/in/shangjia-dong/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
                         </div>
                     </div>
                 </div>
@@ -315,6 +514,681 @@
 <!-- Jquery Plugins, main Jquery -->
 <script src="./assets/js/plugins.js"></script>
 <script src="./assets/js/main.js"></script>
+
+<!-- ======================================================================
+     RESEARCH AREA CONTENT
+     ----------------------------------------------------------------------
+     Everything on this page comes from the THEMES list below. To change the
+     page, edit this list only - the headings, the jump menu, the paper lists
+     and the funding cards all build themselves from it.
+
+       id        unique anchor, also the #link target (t1, t2, ...)
+       short     label for the jump menu (keep to 2-3 words)
+       name      full heading shown on the page
+       fig       path to a figure under assets/img/, or "" for none
+       figAlt    alt text for that figure
+       text      one or more paragraphs, as separate strings
+       systems   optional. The systems this area works with, as a list. Renders
+                 as pills under a SYSTEMS label, between the text and the papers.
+       methods   optional. The methods used, same idea, under METHODS. Always
+                 comes after systems.
+       tags      optional. Any other category, as an object - the key becomes
+                 the label, so tags:{"Hazards":["Flooding","Hurricane"]} prints
+                 a HAZARDS row. These follow systems and methods, in the order
+                 written. Leave all three out and no tag block appears at all.
+       papers    first 6 show, the rest collapse behind a button. To change
+                 that number, edit SHOWN near the top of the script below.
+                 Order decides which 6 are featured - put the best first.
+                 Optional badge:"Best paper award" adds a gold label.
+       funding   grants supporting this area.
+                 todo:true draws the card as a dashed blank.
+
+     A commented-out template for a NEW research area sits at the end of the
+     list. Uncomment it when you need it.
+     ====================================================================== -->
+<script>
+    var THEMES = [
+        {
+            id:"t1", eyebrow:"Thrust", short:"Digital Twin Foundations",
+            name:"Community Digital Twins: Synthetic Household, Housing, and Infrastructure",
+            systems:["Housing","Household","Transportation","Power","Water"],
+            methods:["Generative AI","Reinforcement learning","Deep learning","Contrastive learning","Optimization"],
+            fig:"assets/img/elements/Joint_HH.png",
+            figAlt:"Multilayer infrastructure network model",
+            text:[
+                "We can map the buildings and infrastructure that flood. We cannot say who lives in them or depends on them. Disaster impact assessment runs on census tracts and block groups, and aggregation averages away exactly the households that suffer most. Building-level damage models exist, but knowledge of the people in those buildings stays locked behind privacy restrictions. We generate a synthetic joint housing&ndash;household inventory that links people to the homes they live in, the jobs they hold, and the services they depend on, learning the relationship between a household and its housing unit directly, and guaranteeing that the result aligns with published Census statistics.",
+                "The same gap exists on the physical side. Power and water distribution data are withheld for security and proprietary reasons, leaving modelers without the systems whose failure drives the most acute harm. We generate realistic lifeline networks, both topology and flow dynamics, for any location in the U.S., validated against engineering constraints in OpenDSS and EPANET. Together these form a digital substrate of people and the infrastructure that serves them, and because it is synthetic, it can be shared openly."
+            ],
+            papers:[
+                {t:"A joint synthetic housing-household inventory",
+                    a:"Qian, Xiao, Shangjia Dong, and Rachel Davidson",
+                    v:"Cities", d:"178 (2026): 107299",
+                    u:"https://doi.org/10.1016/j.cities.2026.107299"},
+                {t:"A deep generative framework for joint households and individuals population synthesis",
+                    a:"Qian, Xiao, U. Gangwal, Shangjia Dong, and Rachel Davidson",
+                    v:"Applied Soft Computing", d:"188 (2026): 114375",
+                    u:"https://doi.org/10.1016/j.asoc.2025.114375"},
+                {t:"Deep contrastive learning for feature alignment: Insights from housing-household relationship inference",
+                    a:"Qian, Xiao, Shangjia Dong, and Rachel Davidson",
+                    v:"Computers, Environment and Urban Systems", d:"121 (2025): 102328",
+                    u:"https://doi.org/10.1016/j.compenvurbsys.2025.102328"}
+            ],
+            funding:[
+                {s:"National Science Foundation",
+                    t:"EAGER: Generative AI for Synthetic Population Generation for Disaster Impact Assessment",
+                    role:"Sole PI", period:"2024-2027",
+                    note:"Developing algorithms and models to generate an open source, AI-enabled synthetic population inventory."},
+                {s:"National Science Foundation",
+                    t:"Coastal Hazards, Equity, Economic Prosperity and Resilience (CHEER) Hub",
+                    role:"Senior Personnel", period:"2022–2027",
+                    note:"Develop state-wide joint housing-household inventories to support regional hurricane loss estimation and policy-making. Modeling how households, buildings and policies interact in hurricane risk management."}
+            ]
+        },
+        {
+            id:"t2", eyebrow:"Thrust", short:"Disaster Impact &amp; Adaptation",
+            name:"Service Disruption, Health Disparity, Household Impact and Adaptation",
+            systems:["Transportation","Healthcare access","Schools","Coastal communities"],
+            methods:["Complex network analysis","Survival analysis","Household surveys","Agent-based modeling"],
+            fig:"assets/img/elements/DE_hospital_access.png",
+            text:[
+                "Flood maps show which buildings and infrastructure are underwater. They do not show what a household loses when the route to urgent care or a dialysis clinic floods while the house and the clinic both stay dry. Isolation is a distinct and largely unmeasured form of disaster risk, and it falls unevenly. We model critical service access as a network problem, replacing the usual assumption that people use the nearest facility with mobility data from mobile devices and survey evidence on how households actually reroute and adapt. We also measure the loss itself, developing survey instruments and impact scales alongside survival models of how long households tolerate service loss.",
+                "Adaptation is also what makes impact hard to see. Households rarely simply fail. They reroute, postpone, substitute, or go without, and a household that drives forty minutes to a more distant facility still counts as served even though the trip costs it dearly. We measure that cost directly, developing survey instruments and impact scales to understand the true disaster impact and how long households tolerate service loss before coping stops working."
+            ],
+            papers:[
+                {t:"Critical facility accessibility and road criticality assessment considering flood-induced partial failure",
+                    a:"Gangwal, Utkarsh, A.R. Siders, Jennifer Horney, Holly Michael, and Shangjia Dong",
+                    v:"Sustainable and Resilient Infrastructure", d:"(2023)",
+                    u:"https://doi.org/10.1080/23789689.2022.2149184"},
+                {t:"Lights out, decisions on: How households adapt to power outages across regions and events",
+                    a:"Gangwal, Utkarsh, Rithika Dulam, Shangjia Dong, Rachel A. Davidson, James Kendra, Bradley Ewing, and Adam Andresen.",
+                    v:"Energy Research &amp; Social Science", d:"127 (2025): 104162",
+                    u:"https://doi.org/10.1016/j.erss.2025.104162"},
+                {t:"Characterizing and predicting household adaptations to electric power outages",
+                    a:"Dulam, Rithika, Utkarsh Gangwal, Rachel A. Davidson, Shangjia Dong, Bradley Ewing, James Kendra, and Adam Andresen.",
+                    v:"Urban Informatics", d:"4 (2025): 20",
+                    u:"https://doi.org/10.1007/s44212-025-00082-y"},
+                {t:"Characterizing perceptions of opioid treatment program access barriers during disasters",
+                    a:"Bauman, Palma, Lilly Moreau, Joshua Hall, Shangjia Dong, and Jennifer A. Horney. ",
+                    v:"Disaster Medicine and Public Health Preparedness", d:"19 (2025): e113",
+                    u:"https://doi.org/10.1017/dmp.2025.125"},
+                {t:"Robust component: A robustness measure that incorporates access to critical facilities under disruptions",
+                    a:"Dong, Shangjia, Haizhong Wang, Ali Mostafavi, and Jianxi Gao",
+                    v:"Journal of the Royal Society Interface", d:"16, no. 157 (2019): 20190149",
+                    u:"https://doi.org/10.1098/rsif.2019.0149"},
+                {t:"Flood inundation and isolation differentially impact access to dialysis care",
+                    a:"Jennifer Horney, Utkarsh Gangwal, and Shangjia Dong",
+                    v:"American Journal of Disaster Medicine", d:"19, no. 3 (2024): 265&ndash;269",
+                    u:"https://doi.org/10.5055/ajdm.0490"},
+                {t:"Determinants of risk disparity due to infrastructure service losses in disasters: A household service gap model",
+                    a:"Esmalian, Amir, Shangjia Dong, Natalie Coleman, and Ali Mostafavi",
+                    v:"Risk Analysis", d:"(2021)",
+                    u:"https://doi.org/10.1111/risa.13738"},
+                {t:"Susceptibility curves for humans: Empirical survival models for determining household-level disturbances from hazards-induced infrastructure service disruptions",
+                    a:"Esmalian, Amir, Shangjia Dong, and Ali Mostafavi",
+                    v:"Sustainable Cities and Society", d:"(2021): 102694",
+                    u:"https://doi.org/10.1016/j.scs.2020.102694"},
+                {t:"Ensuring access to opioid treatment program services among Delawareans vulnerable to flooding",
+                    a:"Horney, Jennifer A., Sarah E. Scales, Utkarsh Gangwal, and Shangjia Dong",
+                    v:"Delaware Journal of Public Health", d:"9, no. 2 (2023)",
+                    u:"https://doi.org/10.32481/djph.2023.06.024"}
+            ],
+            funding:[
+                {s:"National Institute of Standards and Technology &middot; Disaster Resilience Research Grant (DRRG) program ",
+                    t:"Disaster Resilient Acute Care: Protecting Infrastructures from Changing Flood.",
+                    role:"PI", period:"2024–2027",
+                    note:"Assessing the acute care vulnerability in the mid-atlantic region"},
+                {s:"National Academies &middot; Gulf Research Program",
+                    t:"Early-Career Research Fellowship in Human Health and Community Resilience",
+                    role:"Fellow", period:"2023–2025",
+                    note:"Measuring how disasters disrupt access to critical services in Gulf communities."},
+                {s:"NOAA Delaware Sea Grant",
+                    t:"Improving Healthcare Access and Equity for Delawareans Impacted by Flooding",
+                    role:"PI", period:"2024–2026",
+                    note:"Understanding how flooding affects Delawareans’ access to healthcare."}
+
+            ]
+        },
+        {
+            // id:"t3", eyebrow:"Thrust", short:"Networks &amp; Adaptation",
+            // name:"Interdependent Networks and Human Adaptation",
+            // systems:["Power","Water","Transportation","Schools"],
+            // methods:["Percolation theory","Multilayer networks","Agent-based modeling","System dynamics","Discrete choice"],
+            // text:[ "Infrastructure fails as a system, not asset by asset. A flooded culvert closes a road; the road closure severs access to a hospital; the detour overloads a corridor that was never designed to carry it, stretching travel times and delaying emergency response and evacuation. We model these dependencies explicitly, using percolation theory, network-of-networks formulations, and reliability analysis to find the thresholds where gradual degradation becomes sudden collapse. Those thresholds are far lower than intuition suggests. Modest, frequent flooding, not the design-level event, is often what tips a road network into disconnection.",
+            //     "Yet real cascades are rarer than these models predict, because households adapt. They shift demand, substitute services, find workarounds, or simply endure. Adaptation is also double-edged. Running water during a freeze protects one home's pipes and drops pressure for everyone, and a school closure propagates through childcare and work schedules across the community. We represent each household and infrastructure element as an agent, coupling agent-based modeling with system dynamics. Treating adaptation as endogenous and heterogeneous, rather than an assumption imposed from outside, is what lets the model reproduce the resilience communities actually show."
+            // ],
+            // papers:[
+            //
+            //     {t:"Network-wide traffic signal control optimization using a multi-agent deep reinforcement learning",
+            //         a:"Li, Zhenning, Hao Yu, Guohui Zhang, Shangjia Dong, and Cheng-Zhong Xu",
+            //         v:"Transportation Research Part C: Emerging Technologies", d:"125 (2021): 103059",
+            //         u:"https://doi.org/10.1016/j.trc.2021.103059"}
+            // ],
+            // funding:[
+            //     {s:"[Sponsor]", t:"[Project title]", role:"[PI / Co-PI]", period:"[years]", todo:true},
+            //     {s:"[Sponsor]", t:"[Project title]", role:"[PI / Co-PI]", period:"[years]", todo:true}
+            // ]
+            id:"t3", eyebrow:"Thrust", short:"Network Vulnerability",
+            name:"Infrastructure Network Vulnerability and Cascading Failure",
+            systems:["Power","Water","Transportation","Stormwater"],
+            methods:["Percolation theory","Network-of-networks","Reliability analysis","Criticality ranking"],
+            fig:"assets/img/elements/community_vulnerability.png",
+            text:[
+                "Infrastructure fails as a system, not asset by asset. A flooded culvert closes a road; the road closure severs access to a hospital; the detour overloads a corridor that was never designed to carry it. Failures also jump between systems. A substation outage stops the pumps that keep water pressure up, and a burst water main floods the road above it. We model these dependencies explicitly, using percolation theory, network-of-networks formulations, and reliability analysis to find the thresholds where gradual degradation becomes sudden collapse.",
+                "The same approach identifies which components actually matter. The most critical element is rarely the largest or the busiest; it is the one whose loss disconnects everything behind it. We rank assets by the consequence of losing them rather than by their exposure to the hazard. One finding recurs across systems. Thresholds are far lower than intuition suggests, and modest, frequent flooding, not the design-level event, is often what tips a road network into disconnection."
+            ],
+            papers:[
+                {t:"Modest flooding can trigger catastrophic road network collapse due to compound failure",
+                    a:"Dong, Shangjia, Xinyu Gao, Ali Mostafavi, and Jianxi Gao",
+                    v:"Communications Earth &amp; Environment", d:"3 (2022)",
+                    u:"https://doi.org/10.1038/s43247-022-00366-0"},
+                {t:"Characterizing resilience of flood-disrupted dynamic transportation network through the lens of link reliability and stability",
+                    a:"Dong, Shangjia, Xinyu Gao, Ali Mostafavi, Jianxi Gao, and Utkarsh Gangwal",
+                    v:"Reliability Engineering &amp; System Safety", d:"(2023)",
+                    u:"https://doi.org/10.1016/j.ress.2022.109071"},
+                {t:"Anatomy of perturbed traffic networks during urban flooding",
+                    a:"Rajput, Akhil Anil, Sanjay Nayak, Shangjia Dong, and Ali Mostafavi",
+                    v:"Sustainable Cities and Society", d:"(2023): 104693",
+                    u:"https://doi.org/10.1016/j.scs.2023.104693"},
+                {t:"Critical facility accessibility rapid failure early-warning detection and redundancy mapping in urban flooding",
+                    a:"Gangwal, Utkarsh, and Shangjia Dong",
+                    v:"Reliability Engineering &amp; System Safety", d:"(2022): 108555",
+                    u:"https://doi.org/10.1016/j.ress.2022.108555"},
+                {t:"Network analysis and characterization of vulnerability in flood control infrastructure for system-level risk reduction",
+                    a:"Farahmand, Hamed, Shangjia Dong, and Ali Mostafavi",
+                    v:"Computers, Environment and Urban Systems", d:"89 (2021): 101663",
+                    u:"https://doi.org/10.1016/j.compenvurbsys.2021.101663"},
+                {t:"A network-of-networks percolation analysis of cascading failures in spatially co-located road-sewer infrastructure networks",
+                    a:"Dong, Shangjia, Haizhong Wang, Alireza Mostafizi, and Xuan Song",
+                    v:"Physica A: Statistical Mechanics and its Applications", d:"538 (2020): 122971",
+                    u:"https://doi.org/10.1016/j.physa.2019.122971"},
+                {t:"Measuring the topological robustness of transportation networks to disaster-induced failures: A percolation approach",
+                    a:"Dong, Shangjia, Alireza Mostafizi, Haizhong Wang, Jianxi Gao, and Xiaopeng Li",
+                    v:"Journal of Infrastructure Systems", d:"26, no. 2 (2020): 04020009",
+                    u:"https://doi.org/10.1061/(ASCE)IS.1943-555X.0000533"}
+            ],
+            funding:[
+                {s:"University of Delaware Research Foundation", t:"Integrated Household Vulnerability and Flood Risk Analysis for Equitable Transportation Access to Emergency Medical Services",
+                    role:"Sole PI", period:"2021-2023",
+                    note:"Developing integrated human-infrastructure network vulnerability modeling framework."},
+                {s:"Delaware Department of Transportation", t:"Prioritizing Road Flood Mitigation for Access to Critical Services",
+                    role:"PI", period:"2022-2024",
+                    note:"Developing decision-making tool for DelDOT to prioritize the road improvement efforts."}
+            ]
+        },
+        {
+            id:"t4", eyebrow:"Thrust", short:"Coupled Human&ndash;Infrastructure System",
+            name:"Interdependent Human&ndash;Infrastructure Networks",
+            systems:["Power","Water","Transportation","Schools","Workplaces","Shelter"],
+            methods:["Multilayer networks","Agent-based modeling","System dynamics","Discrete choice","LLM"],
+            fig:"assets/img/elements/human_infrastructure.png",
+            text:[
+                "Treating infrastructure on its own only gets you halfway. The relationship runs both directions. When power fails, families drive across town to stay with relatives, putting demand on roads that may already be degraded. When schools close, parents may miss work or switch to remote work, disrupting workplace operations. We model households and infrastructure elements together in a multilayer network, representing each household’s decisions with discrete-choice and generative models and coupling agent-based simulation with system dynamics.",
+                "This is also the answer to a long-standing puzzle. Cascade models predict widespread collapse far more often than communities actually experience it, because households adapt. They shift demand, substitute services, find workarounds, or simply endure. Adaptation is double-edged. Running water during a freeze protects one home's pipes and drops pressure for everyone on the line. Treating adaptation as endogenous and heterogeneous, rather than an assumption imposed from outside, is what lets the model reproduce the resilience communities actually show."
+            ],
+            papers:[
+                {t:"An integrated physical-social analysis of disrupted access to critical facilities and community service-loss tolerance in urban flooding",
+                    a:"Dong, Shangjia, Amir Esmalian, Hamed Farahmand, and Ali Mostafavi",
+                    v:"Computers, Environment and Urban Systems", d:"80 (2020): 101443",
+                    u:"https://doi.org/10.1016/j.compenvurbsys.2019.101443"},
+                {t:"Living with and without water: Resource disparity assessment during flooding through an interdependent system dynamic modeling approach",
+                    a:"Utkarsh Gangwal, Shangjia Dong, Fengyan Shi",
+                    v:"Urban Informatics", d:"4, no. 1 (2025): 1&ndash;21",
+                    u:"https://doi.org/10.1007/s44212-025-00072-0"},
+                {t:"Agent-based tsunami evacuation modeling of unplanned network disruptions for evidence-driven resource allocation and retrofitting strategies",
+                    a:"Mostafizi, Alireza, Haizhong Wang, Dan Cox, Lori A. Cramer, and Shangjia Dong",
+                    v:"Natural Hazards", d:"88 (2017): 1347&ndash;1372",
+                    u:"https://doi.org/10.1007/s11069-017-2927-y"},
+                {t:"An agent-based vertical evacuation model for a near-field tsunami: Choice behavior, logical shelter locations, and life safety",
+                    a:"Mostafizi, Alireza, Haizhong Wang, Dan Cox, and Shangjia Dong",
+                    v:"International Journal of Disaster Risk Reduction", d:"34 (2019): 467&ndash;479",
+                    u:"https://doi.org/10.1016/j.ijdrr.2018.12.018"}
+            ],
+            funding:[
+                {s:"National Science Foundation",
+                    t:"CAREER: AI-Driven Role-Aware Modeling of Cascading Disaster Impacts in Sociotechnical Systems",
+                    role:"Sole PI", period:"2026-2031",
+                    note:"Advances a new paradigm of human-centered disaster impact assessment that captures how individual adaptive choices interact with infrastructure systems to produce cascading societal impacts."}
+            ]
+        },
+        {
+            id:"t5", eyebrow:"Thrust", short:"Restoration &amp; Recovery",
+            name:"Infrastructure Recovery and Service Restoration",
+            systems:["Power","Water","Transportation"],
+            methods:["Scheduling optimization","Resource allocation","Simulation"],
+            text:[
+                "Restoring a network is not the same as restoring a community. After an event, utilities and agencies decide what to bring back and in what order, and those decisions are usually optimized against system-level metrics, such as customers reconnected, miles of road reopened, or capacity recovered. In those counts, every household counts as one. But the same day without power costs far more to a family already displaced, or to one with no car to reach a shelter, than to neighbors who can wait it out.",
+                "We formulate restoration sequencing with household impact as the objective, built on the digital twin substrate and the impact measures developed in our other thrusts. We ask which repairs relieve the worst impact soonest, how limited crews and budgets change that answer, and which repairs have to come first because everything else waits on them."
+            ],
+            papers:[
+
+            ],
+            funding:[
+                {s:"National Science Foundation",
+                    t:"SAI: Understanding and managing the societal impacts of infrastructure system service interruptions",
+                    role:"Co-PI", period:"2025–2028",
+                    note:"Advance understanding of the resilience of infrastructure as sociotechnical systems and the best strategies to manage them in different circumstances so as to minimize negative societal impacts."}
+            ]
+        },
+        {
+            id:"t6", eyebrow:"Additional expertise", short:"Flood Intelligence",
+            name:"Flood Intelligence from Physical and Social Sensing",
+            systems:["Flood control infrastructure","Transportation"],
+            methods:["Machine learning","Bayesian network","Data fusion","Observability analysis"],
+            text:[
+                "Flooding is predictable before it arrives, if you can see the water moving. We install gauges along bayous, rivers, and channels that track water levels continuously, and because we know how those channels connect, we can simulate how a rise propagates through the network and onto the adjacent streets and neighborhoods.",
+                "Gauges can be sparse due to high cost, but people are everywhere. Residents report flooded streets, traffic slows measurably, and both signals arrive faster than any hydrologic model can resolve at street scale. We fuse these social sensors with the gauge network and remote sensing, then use deep learning to turn the combination into predictions that hold at the resolution decisions are actually made."
+            ],
+            papers:[
+                {t:"Bayesian modeling of flood control networks for failure cascade characterization and vulnerability assessment",
+                    a:"Dong, Shangjia, Tianbo Yu, Hamed Farahmand, and Ali Mostafavi",
+                    v:"Computer-Aided Civil and Infrastructure Engineering", d:"35, no. 7 (2020): 668–684",
+                    u:"https://doi.org/10.1111/mice.12527"},
+                {t:"Probabilistic modeling of cascading failure risk in interdependent channel and road networks in urban flooding",
+                    a:"Dong, Shangjia, Tianbo Yu, Hamed Farahmand, and Ali Mostafavi",
+                    v:"Sustainable Cities and Society", d:"(2020): 102398",
+                    u:"https://doi.org/10.1016/j.scs.2020.102398"},
+                {t:"Predictive multi-watershed flood monitoring using deep learning on integrated physical and social sensors data",
+                    a:"Dong, Shangjia, Tianbo Yu, Hamed Farahmand, and Ali Mostafavi",
+                    v:"Environment and Planning B: Urban Analytics and City Science", d:"(2022)",
+                    u:"https://doi.org/10.1177/23998083211069140"},
+                {t:"Smart flood resilience: Harnessing community-scale big data for predictive flood risk monitoring, rapid impact assessment, and situational awareness",
+                    a:"Yuan, Faxi, Chao Fan, Hamed Farahmand, Natalie Coleman, Amir Esmalian, Cheng-Chun Lee, Flavia I. Patrascu, Chia-Fu Zhang, Shangjia Dong, and Ali Mostafavi",
+                    v:"Environmental Research: Infrastructure and Sustainability", d:"2, no. 2 (2022)",
+                    u:"https://doi.org/10.1088/2634-4505/ac7251"},
+                {t:"A network observability framework for sensor placement in flood control networks to improve flood situational awareness and risk management",
+                    a:"Farahmand, Hamed, Xi Liu, Shangjia Dong, Ali Mostafavi, and Jianxi Gao",
+                    v:"Reliability Engineering &amp; System Safety", d:"(2022): 108366",
+                    u:"https://doi.org/10.1016/j.ress.2022.108366"},
+                {t:"Predicting road flooding risk with machine learning approaches using crowdsourced reports and fine-grained traffic data",
+                    a:"Yuan, Faxi, Cheng-Chun Lee, William Mobley, Hamed Farahmand, Russell Blessing, Shangjia Dong, Ali Mostafavi, and Samuel Brody",
+                    v:"Computational Urban Science", d:"(2023)",
+                    u:"https://doi.org/10.1007/s43762-023-00082-1"}
+            ]
+            // funding:[
+            //     {s:"[Sponsor]", t:"[Project title]", role:"[PI / Co-PI]", period:"[years]", todo:true}
+            // ]
+        },
+        {
+            id:"t7", eyebrow:"Additional expertise", short:"Planning &amp; Institutions",
+            name:"Resilience Planning, Policy, and Institutional Coordination",
+            systems:["Transportation agencies","Flood management"],
+            methods:["Social network analysis","Plan evaluation", "Resilience scorecard", "Stakeholder interview"],
+            text:[
+                "A resilient system is not only an engineered one. Infrastructure decisions are distributed across agencies with separate mandates, plans, and budgets, and misalignment between them produces vulnerability no structural retrofit can fix. We model these institutional networks alongside the physical ones, asking where plans contradict each other and where coordination actually changes outcomes. This work also asks how resilience moves from principle into practice, such as what measures transportation agencies can apply within existing project development processes, rather than what an ideal planning regime would look like."
+            ],
+            papers:[
+                {t:"Integrated infrastructure-plan analysis for resilience enhancement of post-hazards access to critical facilities",
+                    a:"Dong, Shangjia, Matthew Malecha, Hamed Farahmand, Ali Mostafavi, Philip R. Berke, and Sierra C. Woodruff",
+                    v:"Cities", d:"117 (2021): 103318",
+                    u:"https://doi.org/10.1016/j.cities.2021.103318"},
+                {t:"Institutional connectedness in resilience planning and management of interdependent infrastructure systems",
+                    a:"Dong, Shangjia, Qingchun Li, Hamed Farahmand, Ali Mostafavi, Philip R. Berke, and Arnold Vedlitz",
+                    v:"ASCE Journal of Management in Engineering", d:"36, no. 6 (2020): 04020075",
+                    u:"https://doi.org/10.1061/(ASCE)ME.1943-5479.0000839"},
+                {t:"Operationalizing resilience practices in transportation infrastructure planning and project development",
+                    a:"Esmalian, Amir, Faxi Yuan, Akhil Anil Rajput, Hamed Farahmand, Shangjia Dong, Qingchun Li, Xinyu Gao, Chao Fan, Cheng-Chun Lee, Chia-Wei Hsu, and Ali Mostafavi",
+                    v:"Transportation Research Part D: Transport and Environment", d:"(2022)",
+                    u:"https://doi.org/10.1016/j.trd.2022.103214"},
+                {t:"Institutional congruence for resilience management in interdependent infrastructure systems",
+                    a:"Farahmand, Hamed, Shangjia Dong, Ali Mostafavi, Philip R. Berke, Sierra C. Woodruff, Bryce Hannibal, and Arnold Vedlitz",
+                    v:"International Journal of Disaster Risk Reduction", d:"46 (2020): 101515",
+                    u:"https://doi.org/10.1016/j.ijdrr.2020.101515"},
+                {t:"Metanetwork framework for analysis of actor-plan-task-infrastructure networks in resilience planning and management",
+                    a:"Li, Qingchun, Shangjia Dong, and Ali Mostafavi",
+                    v:"Natural Hazards Review", d:"21, no. 2 (2020): 04020016",
+                    u:"https://doi.org/10.1061/(ASCE)NH.1527-6996.0000376"},
+                {t:"Quantitative measures for integrating resilience into transportation planning practice: Study in Texas",
+                    a:"Hsu, Chia-Wei, Cheng-Chun Lee, Akhil Anil Rajput, Chao Fan, Faxi Yuan, Shangjia Dong, Amir Esmalian, Hamed Farahmand, Flavia Patrascu, Chenyue Liu, Baiyu Li, Jiaqi Ma, and Ali Mostafavi",
+                    v:"Transportation Research Part D: Transport and Environment", d:"(2022)",
+                    u:"https://doi.org/10.1016/j.trd.2022.103496"},
+                {t:"Modeling of inter-organizational coordination dynamics in resilience planning of infrastructure systems: A multilayer network simulation framework",
+                    a:"Li, Qingchun, Shangjia Dong, and Ali Mostafavi",
+                    v:"PLoS ONE", d:"14, no. 11 (2019): e0224522",
+                    u:"https://doi.org/10.1371/journal.pone.0224522"}
+            ],
+            funding:[
+                {s:"National Science Foundation",
+                    t:"CRISP 2.0 Type 2: Anatomy of Coupled Human-Infrastructure Systems Resilience to Urban Flooding: Integrated Assessment of Social, Institutional, and Physical Networks",
+                    role:"Leading Postdoc", period:"2018-2020",
+                    note:"Proposing an integrated infrastructure-policy framework to analyze policy attention on addressing infrastructure service needs from community, and provides a tool to evaluate an existing network of plans and identify gaps for future resilience improvement."}
+            ]
+        },
+
+        // =========================================================================
+        // TEMPLATE FOR A NEW RESEARCH AREA
+        // -------------------------------------------------------------------------
+        // Uncomment this block and give it a new id (t5, t6, ...) to add an area.
+        // The jump menu picks it up automatically - nothing else needs editing.
+        // Delete draft:true when the area is ready and the dashed styling goes solid.
+        // =========================================================================
+        // {
+        //   id:"t5", eyebrow:"Thrust", short:"New Area", draft:true,
+        //   name:"[New research area - title goes here]",
+        //   fig:"", figAlt:"",
+        //   systems:["Housing","Power"],           // optional, delete if not needed
+        //   methods:["Generative AI"],             // optional, delete if not needed
+        //   tags:{"Hazards":["Flooding"]},         // optional, any other category
+        //   text:[
+        //     "[One paragraph on what question this area asks and why it matters.]",
+        //     "[A second paragraph on method or findings. Delete if one is enough.]"
+        //   ],
+        //   papers:[
+        //     // {t:"Paper title",
+        //     //  a:"Last, First, and Co Author",
+        //     //  v:"Journal Name", d:"12, no. 3 (2026): 101234",
+        //     //  u:"https://doi.org/..."},
+        //   ],
+        //   funding:[
+        //     {s:"[Sponsor]", t:"[Project title]", role:"[PI / Co-PI]", period:"[years]", todo:true}
+        //   ]
+        // }
+    ];
+
+    (function () {
+        "use strict";
+
+        // How many papers show before the rest collapse. Everything downstream
+        // reads this one number, so changing it here is the whole edit.
+        var SHOWN = 6;
+
+        function esc(v) {
+            return String(v).replace(/[<>]/g, function (c) {
+                return c === '<' ? '&lt;' : '&gt;';
+            });
+        }
+        // Bold Shangjia Dong wherever he appears in an author list.
+        function authors(a) {
+            return a.replace(/(Dong,\s*Shangjia|Shangjia\s+Dong)/g, '<span class="dl-me">$1</span>');
+        }
+
+        function pubHTML(p) {
+            return '<article class="dl-pub">' +
+                '<h3><a href="' + p.u + '" target="_blank" rel="noopener">' + esc(p.t) + '</a></h3>' +
+                '<p class="dl-a" title="' + esc(p.a).replace(/"/g, '&quot;') + '">' +
+                authors(esc(p.a)) + '</p>' +
+                '<p class="dl-v"><em>' + p.v + '</em> ' + esc(p.d) + '.</p>' +
+                (p.badge ? '<span class="dl-badge">' + esc(p.badge) + '</span>' : '') +
+                '</article>';
+        }
+
+        // Tag groups for one area. "systems" and "methods" are named explicitly so
+        // they always come first, in that order, with those labels. Anything else
+        // goes in tags:{} and renders after them, using the key as the label.
+        // All three are optional: an area with none renders no tag block at all.
+        function tagGroups(th) {
+            var groups = [], k;
+            if (th.systems && th.systems.length) { groups.push(['Systems', th.systems]); }
+            if (th.methods && th.methods.length) { groups.push(['Methods', th.methods]); }
+            if (th.tags) {
+                for (k in th.tags) {
+                    if (th.tags.hasOwnProperty(k) && th.tags[k] && th.tags[k].length) {
+                        groups.push([k, th.tags[k]]);
+                    }
+                }
+            }
+            return groups;
+        }
+
+        function tagsHTML(th) {
+            var groups = tagGroups(th);
+            if (!groups.length) { return ''; }
+            return '<dl class="dl-tags">' + groups.map(function (g) {
+                return '<dt>' + esc(g[0]) + '</dt><dd>' +
+                    g[1].map(function (t) {
+                        return '<span class="dl-tag">' + esc(t) + '</span>';
+                    }).join('') +
+                    '</dd>';
+            }).join('') + '</dl>';
+        }
+
+        function fundHTML(f) {
+            return '<div class="dl-fund' + (f.todo ? ' dl-todo' : '') + '">' +
+                '<span class="dl-sponsor">' + f.s + '</span>' +
+                '<p class="dl-ft">' + esc(f.t) + '</p>' +
+                '<p class="dl-fm"><span class="dl-role">' + esc(f.role) + '</span> &middot; ' +
+                esc(f.period) + (f.note ? '<br>' + esc(f.note) : '') + '</p>' +
+                '</div>';
+        }
+
+        // Tab strip builds itself, so a new area needs no edit here.
+        var tablist = document.getElementById('dl-jump');
+        tablist.setAttribute('role', 'tablist');
+        tablist.innerHTML = THEMES.map(function (th) {
+            return '<a role="tab" id="dl-tab-' + th.id + '" aria-controls="' + th.id + '"' +
+                ' aria-selected="false" class="' + (th.draft ? 'dl-draft' : '') +
+                '" href="#' + th.id + '">' + th.short + '</a>';
+        }).join('');
+
+        document.getElementById('dl-themes').innerHTML = THEMES.map(function (th) {
+            var shown = th.papers.slice(0, SHOWN);
+            var hidden = th.papers.slice(SHOWN);
+
+            var fig = th.fig
+                ? '<div class="dl-figure"><img src="' + th.fig + '" alt="' + esc(th.figAlt) + '"></div>'
+                : '';
+
+            var funds = (th.funding && th.funding.length)
+                ? '<div class="dl-funding"><p class="dl-subhead">Support for this work</p>' +
+                '<div class="dl-fundgrid">' + th.funding.map(fundHTML).join('') + '</div></div>'
+                : '';
+
+            return '<section class="dl-theme' + (th.draft ? ' dl-draft' : '') + '" id="' + th.id + '"' +
+                ' role="tabpanel" tabindex="-1" aria-labelledby="dl-tab-' + th.id + '">' +
+                '<span class="dl-eyebrow">' + (th.draft ? 'Placeholder' : esc(th.eyebrow)) + '</span>' +
+                '<h2>' + esc(th.name) + '</h2>' +
+                // '<div class="dl-themebody"><div>' +
+                '<div class="dl-themebody' + (th.fig ? '' : ' dl-nofig') + '"><div>' +
+                th.text.map(function (t) { return '<p>' + t + '</p>'; }).join('') +
+                '</div>' + fig + '</div>' + tagsHTML(th) +
+                '<div class="dl-papers">' +
+                '<p class="dl-subhead">Selected papers</p>' +
+                '<div class="dl-publist">' + (shown.length
+                    ? shown.map(pubHTML).join('')
+                    : '<p class="dl-nopapers">No papers listed yet for this area.</p>') + '</div>' +
+                '<div class="dl-publist" id="dl-rest-' + th.id + '" style="display:none">' +
+                hidden.map(pubHTML).join('') + '</div>' +
+                (hidden.length
+                    ? '<button class="dl-more" type="button" data-t="' + th.id +
+                    '" aria-expanded="false" aria-controls="dl-rest-' + th.id + '">Show ' +
+                    hidden.length + ' more</button>'
+                    : '') +
+                '</div>' + funds +
+                '</section>';
+        }).join('');
+
+        // ---- One area at a time -------------------------------------------------
+        // Areas behave as tabs: the selected one shows, the rest hide. The URL hash
+        // still names the area, so links like research.html#t3 keep working and
+        // stay shareable.
+        var tabs = tablist.querySelectorAll('a[role="tab"]');
+        var current = null;
+
+        function panelOf(id) { return document.getElementById(id); }
+
+        function selectTheme(id, scroll, skipHash) {
+            var found = false, i;
+            for (i = 0; i < THEMES.length; i++) { if (THEMES[i].id === id) { found = true; } }
+            if (!found) { id = THEMES[0].id; }
+            if (id === current) { if (scroll) { scrollToTabs(); } return; }
+            current = id;
+
+            for (i = 0; i < THEMES.length; i++) {
+                var p = panelOf(THEMES[i].id);
+                if (p) { p.className = p.className.replace(/\s*dl-hide/g, '') +
+                    (THEMES[i].id === id ? '' : ' dl-hide'); }
+            }
+            Array.prototype.forEach.call(tabs, function (t) {
+                var on = t.getAttribute('aria-controls') === id;
+                t.setAttribute('aria-selected', on ? 'true' : 'false');
+                t.setAttribute('tabindex', on ? '0' : '-1');
+                t.className = t.className.replace(/\s*dl-active/g, '') + (on ? ' dl-active' : '');
+            });
+
+            // Don't stamp a hash onto a plain visit to research.html; only once the
+            // reader actually picks an area.
+            if (!skipHash && history.replaceState) { history.replaceState(null, '', '#' + id); }
+            if (scroll) { scrollToTabs(); }
+        }
+
+        // Measure whatever is actually pinned to the top of the viewport right
+        // now. The theme's sticky script swaps the header between in-flow and
+        // position:fixed as you scroll, and the two states have different
+        // heights, so a value cached at load time is wrong half the time.
+        function pinnedHeaderHeight() {
+            var sel = ['.main-header.header-sticky', '.header-sticky',
+                '.main-header', '.header-area'];
+            var i, el, cs, h = 0;
+            for (i = 0; i < sel.length; i++) {
+                el = document.querySelector(sel[i]);
+                if (!el) { continue; }
+                cs = window.getComputedStyle(el);
+                if (cs.position === 'fixed' && (parseFloat(cs.top) || 0) <= 1) {
+                    h = Math.max(h, el.offsetHeight);
+                }
+            }
+            // Nothing pinned yet (we're at the top of the page), but scrolling
+            // down is about to pin it, so reserve its in-flow height instead.
+            if (!h) {
+                el = document.querySelector('.main-header') ||
+                    document.querySelector('.header-area');
+                h = el ? el.offsetHeight : 0;
+            }
+            return Math.min(Math.max(h, 70), 220);
+        }
+
+        // Where the tab strip should end up: just clear of the pinned header.
+        function tabsTargetTop() {
+            var y = tablist.getBoundingClientRect().top +
+                (window.pageYOffset || document.documentElement.scrollTop);
+            return Math.max(0, y - pinnedHeaderHeight() - 20);
+        }
+
+        // Put the tab strip just under the sticky header, so the selected area's
+        // heading is the first thing visible and the tabs stay in reach.
+        //
+        // This has to settle rather than fire once. Scrolling is what makes the
+        // header go fixed, and that both changes its height and lifts the rest
+        // of the document by the height it used to occupy, so a position
+        // computed before the scroll leaves the tabs underneath the banner.
+        // We jump, then re-measure for a few frames and correct.
+        function scrollToTabs() {
+            var root = document.documentElement;
+            var prev = root.style.scrollBehavior;
+            // No smooth animation to fight while we're correcting.
+            root.style.scrollBehavior = 'auto';
+            window.scrollTo(0, tabsTargetTop());
+
+            var frames = 0;
+            function settle() {
+                var want = tabsTargetTop();
+                var now = window.pageYOffset || root.scrollTop;
+                if (Math.abs(want - now) > 2) { window.scrollTo(0, want); }
+                frames++;
+                if (frames < 6) {
+                    if (window.requestAnimationFrame) { requestAnimationFrame(settle); }
+                    else { setTimeout(settle, 16); }
+                } else {
+                    root.style.scrollBehavior = prev;
+                }
+            }
+            if (window.requestAnimationFrame) { requestAnimationFrame(settle); }
+            else { setTimeout(settle, 16); }
+            // One last check after the header's slide-in animation has run, in
+            // case the theme changes its height partway through.
+            setTimeout(function () {
+                var want = tabsTargetTop();
+                var now = window.pageYOffset || root.scrollTop;
+                if (Math.abs(want - now) > 2) { window.scrollTo(0, want); }
+                root.style.scrollBehavior = prev;
+            }, 400);
+        }
+
+        tablist.addEventListener('click', function (e) {
+            var a = e.target;
+            while (a && a !== tablist && a.getAttribute && a.getAttribute('role') !== 'tab') {
+                a = a.parentNode;
+            }
+            if (!a || a === tablist) { return; }
+            e.preventDefault();
+            selectTheme(a.getAttribute('aria-controls'), true);
+        });
+
+        // Left/right arrows move between tabs, as expected of a tab strip.
+        tablist.addEventListener('keydown', function (e) {
+            var k = e.keyCode;
+            if (k !== 37 && k !== 39 && k !== 36 && k !== 35) { return; }
+            var idx = 0, i;
+            for (i = 0; i < tabs.length; i++) {
+                if (tabs[i].getAttribute('aria-controls') === current) { idx = i; }
+            }
+            if (k === 37) { idx = (idx - 1 + tabs.length) % tabs.length; }
+            if (k === 39) { idx = (idx + 1) % tabs.length; }
+            if (k === 36) { idx = 0; }
+            if (k === 35) { idx = tabs.length - 1; }
+            e.preventDefault();
+            selectTheme(tabs[idx].getAttribute('aria-controls'), false);
+            tabs[idx].focus();
+        });
+
+        // Open on the area named in the URL, otherwise the first one.
+        var fromHash = (location.hash || '').replace('#', '');
+        selectTheme(fromHash, false, true);
+        if (fromHash) { window.addEventListener('load', scrollToTabs); }
+
+        window.addEventListener('hashchange', function () {
+            selectTheme((location.hash || '').replace('#', ''), true);
+        });
+
+        // Keep anchor jumps clear of the sticky header by measuring it rather than
+        // assuming a height. Re-measured on resize, since the header reflows.
+        function setAnchorOffset() {
+            document.documentElement.style.setProperty(
+                '--dl-anchor-offset', (pinnedHeaderHeight() + 20) + 'px');
+        }
+        setAnchorOffset();
+        window.addEventListener('load', setAnchorOffset);
+        window.addEventListener('resize', setAnchorOffset);
+        // The header pins and unpins as the reader scrolls, so keep the offset
+        // in step with it. Throttled to one measurement per frame.
+        (function () {
+            var queued = false;
+            window.addEventListener('scroll', function () {
+                if (queued) { return; }
+                queued = true;
+                var run = function () { queued = false; setAnchorOffset(); };
+                if (window.requestAnimationFrame) { requestAnimationFrame(run); }
+                else { setTimeout(run, 16); }
+            }, { passive: true });
+        }());
+
+        // A missing figure file collapses its box instead of showing a broken image.
+        Array.prototype.forEach.call(document.querySelectorAll('.dl-figure img'), function (img) {
+            function hide() { img.parentNode.style.display = 'none'; }
+            if (img.complete && img.naturalWidth === 0) { hide(); }
+            else { img.addEventListener('error', hide); }
+        });
+
+        document.addEventListener('click', function (e) {
+            var b = e.target;
+            while (b && b !== document && !(b.className && String(b.className).indexOf('dl-more') > -1)) {
+                b = b.parentNode;
+            }
+            if (!b || b === document) { return; }
+
+            var id = b.getAttribute('data-t');
+            var panel = document.getElementById('dl-rest-' + id);
+            var th, i;
+            for (i = 0; i < THEMES.length; i++) { if (THEMES[i].id === id) { th = THEMES[i]; } }
+
+            var open = panel.style.display === 'none';
+            // Empty string, not 'block': the stylesheet makes this a grid, and an
+            // inline display:block would collapse it back to one column.
+            panel.style.display = open ? '' : 'none';
+            b.setAttribute('aria-expanded', open ? 'true' : 'false');
+            b.innerHTML = open ? 'Show fewer' : 'Show ' + (th.papers.length - SHOWN) + ' more';
+        });
+    }());
+</script>
 
 </body>
 </html>
